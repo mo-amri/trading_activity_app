@@ -1,18 +1,4 @@
-"""
-Warning: to view this Streamlit app on a browser, run it with the following
-Command:
-streamlit run /Users/mohamed_amri/In-progress/Pycharm_Workspace/Monitoring_Trading_Activity_Web_App/main.py main.py
 
-Deploy Your Streamlit App To Render (Free Heroku Alternative)
-YouTube URL: https://www.youtube.com/watch?v=4SO3CUWPYf0
-
-Easily Make DataFrame App with Streamlit Pandas (Only 2 lines of Python!)
-YouTube URL: https://www.youtube.com/watch?v=L4KVn1XnSAA
-
-How to Add a User Authentication Service (Login Form) in Streamlit
-YouTube URL: https://www.youtube.com/watch?v=JoFGrSRj4X4
-to the app command:  streamlit run main.py
-"""
 from io import StringIO
 
 import streamlit as st
