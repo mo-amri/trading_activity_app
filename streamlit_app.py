@@ -70,11 +70,11 @@ def monitoring_trading():
         profit_or_lost_made = gross_amount - trading_budget
 
         # Display the submitted user inputs
-        st.write(f"Trading Date: {processing_date.strftime('%d-%m-%Y')}, Processing Time: {processing_time}")
+        # st.write(f"Trading Date: {processing_date.strftime('%d-%m-%Y')}, Processing Time: {processing_time}")
         st.write(f"Company Name: {company_name}")
         st.write(f"Trading Budget: £{round(trading_budget, 2)}")
-        st.write(f"Purchase Price per Share: {purchase_price_per_share} " f"GBX  - Purchase Time: {purchase_time}")
-        st.write(f"Selling Price per Share: {selling_price_per_share} " f"GBX  - Selling Time: {selling_time}")
+        # st.write(f"Purchase Price per Share: {purchase_price_per_share} " f"GBX  - Purchase Time: {purchase_time}")
+        # st.write(f"Selling Price per Share: {selling_price_per_share} " f"GBX  - Selling Time: {selling_time}")
         st.write(f"Amount of Shares: {round(amount_of_shares, 2)}")
         st.write(f"Gross Amount: £{round(gross_amount, 2)}")
         # Check up the result
