@@ -74,7 +74,7 @@ def monitoring_trading():
         st.write(f"Company Name: {company_name}")
         st.write(f"Trading Budget: £{round(trading_budget, 2)}")
         # st.write(f"Purchase Price per Share: {purchase_price_per_share} " f"GBX  - Purchase Time: {purchase_time}")
-       # st.write(f"Selling Price per Share: {selling_price_per_share} " f"GBX  - Selling Time: {selling_time}")
+        st.write(f"Selling Price per Share: {selling_price_per_share} " f"GBX  - Selling Time: {selling_time}")
        # st.write(f"Amount of Shares: {round(amount_of_shares, 2)}")
         st.write(f"Gross Amount: £{round(gross_amount, 2)}")
         # Check up the result
