@@ -137,7 +137,7 @@ def monitoring_trading():
 
     # ____ - Download CSV File.  ____________________________________________________________________________________
     # Generate a download button
-    if st.button("Download The Table as CSV File"):
+    if st.button("Download Table as CSV File"):
         # Calculate the trading profit or lost
         amount_of_shares = trading_budget / purchase_price_per_share
         gross_amount = amount_of_shares * selling_price_per_share
