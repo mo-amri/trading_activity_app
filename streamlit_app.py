@@ -23,7 +23,7 @@ def monitoring_trading():
         with col1:
             processing_date = st.date_input("Processing Date")
         with col2:
-            processing_time = st.text_input("Processing Time")
+            processing_time = st.time_input("Processing Time")
         company_name = st.text_input("Trading Company Name:")
         trading_budget = st.number_input("Trading Budget GBP", min_value=0.0)
         # ___Create four columns
@@ -33,7 +33,7 @@ def monitoring_trading():
             purchase_price_per_share = st.number_input("Purchase Share Price GBX", min_value=0.0)
         with col4:
             # ----------------------------"Enter The Time at Which The purchase Price Occurred"
-            purchase_time = st.number_input("Purchase Time")
+            purchase_time = st.text_input("Purchase Time")
         col5, col6 = st.columns(2)
         with col5:
             selling_price_per_share = st.number_input('Selling Share Price GBX', min_value=0.0)
