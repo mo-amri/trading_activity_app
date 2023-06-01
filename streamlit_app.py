@@ -87,7 +87,7 @@ def monitoring_trading():
             st.warning(f"Made a loos:  £{round(profit_or_lost_made, 2)}")
 
     # _____ - Display The Data as a Table. ________________________________________________________________________
-    if st.button("Display The Table Data"):
+    if st.button("Display The Data as a Table"):
         # Calculate the trading profit or lost
         amount_of_shares = trading_budget / purchase_price_per_share
         gross_amount = amount_of_shares * selling_price_per_share
@@ -137,7 +137,7 @@ def monitoring_trading():
 
     # ____ - Download CSV File.  ____________________________________________________________________________________
     # Generate a download button
-    if st.button("Download CSV File"):
+    if st.button("Download The Table as CSV File"):
         # Calculate the trading profit or lost
         amount_of_shares = trading_budget / purchase_price_per_share
         gross_amount = amount_of_shares * selling_price_per_share
