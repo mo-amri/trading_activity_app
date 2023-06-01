@@ -33,12 +33,12 @@ def monitoring_trading():
             purchase_price_per_share = st.number_input("Purchase Share Price GBX", min_value=0.0)
         with col4:
             # ----------------------------"Enter The Time at Which The purchase Price Occurred"
-            purchase_time = st.text_input("Purchase Time")
+            purchase_time = st.time_input("Purchase Time")
         col5, col6 = st.columns(2)
         with col5:
             selling_price_per_share = st.number_input('Selling Share Price GBX', min_value=0.0)
         with col6:
-            selling_time = st.text_input("Selling Time")
+            selling_time = st.time_input("Selling Time")
 
         # Add a submit button
         submit_button = st.form_submit_button("Submit")
