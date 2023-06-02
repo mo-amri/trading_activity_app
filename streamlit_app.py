@@ -199,7 +199,7 @@ def converter_gbx_to_gbp():
             gbp_result = calculate_gbx_to_gbp(gbx)
             # st.write(f"Equivalent GBP value: {gbp:.2f}")
 
-        submit_button = st.form_submit_button("Submit")
+        submit_button = st.form_submit_button("Convert")
 
         if submit_button:
             # Process form submission
@@ -229,7 +229,7 @@ def converter_gbp_to_gbx():
             gbx_result = calculate_gbp_to_gbx(gbp)
             # st.write(f"Equivalent GBP value: {gbp:.2f}")
 
-        submit_button = st.form_submit_button("Submit")
+        submit_button = st.form_submit_button("Convert")
 
         if submit_button:
             # Process form submission
