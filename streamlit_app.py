@@ -11,7 +11,7 @@ from streamlit import session_state
 def monitoring_trading():
 
     # st.title("Amri Investment Web Application")
-    st.title.markdown("<h1 style='color: salmon;'>Amri Investment Web Application</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='color: salmon;'>Amri Investment Web Application</h1>", unsafe_allow_html=True)
     st.subheader("Monitoring Trading Activity")
 
     # st.sidebar.markdown("<h1 style='color: salmon;'>Amri Investment Ltd</h1>", unsafe_allow_html=True)
