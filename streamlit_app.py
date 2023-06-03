@@ -82,7 +82,7 @@ def monitoring_trading():
         if profit_or_lost_made == 0:
             st.info(f"No Profit Made:  £{round(profit_or_lost_made, 2)}")
         elif profit_or_lost_made > 0:
-            st.success(f"Profit Made:  £{round(profit_or_lost_made, 2)}")
+            st.success(f" **Profit Made:**  £{round(profit_or_lost_made, 2)}")
             st.snow()
         else:
             st.warning(f"Made a loos:  £{round(profit_or_lost_made, 2)}")
