@@ -80,12 +80,12 @@ def monitoring_trading():
         st.write(f"Gross Amount: £{round(gross_amount, 2)}")
         # Check up the result
         if profit_or_lost_made == 0:
-            st.info(f"No Profit Made:  £{round(profit_or_lost_made, 2)}")
+            st.info(f" **No Profit Was Made:**  £{round(profit_or_lost_made, 2)}")
         elif profit_or_lost_made > 0:
-            st.success(f"Profit Made:  £ {round(profit_or_lost_made, 2)}")
+            st.success(f" **Profit Made:**  £{round(profit_or_lost_made, 2)}")
             st.snow()
         else:
-            st.warning(f"Made a loos:  £{round(profit_or_lost_made, 2)}")
+            st.warning(f" **Made a loos:**  £ {round(profit_or_lost_made, 2)}")
 
     # _____ - Display The Data as a Table. ________________________________________________________________________
     if st.button("Display The Data as a Table"):
