@@ -1,9 +1,8 @@
 
+
+
 import streamlit as st
-import csv
-import time
 import pandas as pd
-from streamlit import session_state
 
 
 def monitoring_trading():
@@ -47,7 +46,7 @@ def monitoring_trading():
             selling_time = st.text_input("Selling Time")
 
         # Add a submit button
-        submit_button = st.form_submit_button("Calculate The Profit / Loss")
+        submit_button = st.form_submit_button("Calculate Profit / Loss")
 
         if submit_button:
             # ___ Process the form data & Calculate the trading profit / loss
@@ -75,10 +74,15 @@ def monitoring_trading():
     # _____ - Display the Data. __________________________________________________________________________
     if st.button("Display The Data"):
 
-        # Calculate the trading profit or loss
-        amount_of_shares = trading_budget / purchase_price_per_share
-        gross_amount = amount_of_shares * selling_price_per_share
-        profit_or_lost_made = gross_amount - trading_budget
+        # ___ Calculate the trading profit / loss
+        # ___ Convert purchase price from GBX to GBP.
+        gbp_purchase = purchase_price_per_share / 100
+        # ___ Convert selling price from GBX to GBP.
+        gbp_selling = selling_price_per_share / 100
+
+        amount_of_shares = trading_budget / gbp_purchase
+        gross_amount = amount_of_shares * gbp_selling
+        profit_or_lost_made = gross_amount - (trading_budget + trading_fees)
 
         # Check up the result
         if profit_or_lost_made == 0:
@@ -119,21 +123,26 @@ def monitoring_trading():
             st.write(f"Gross Amount: **£{round(gross_amount, 2)}**")
 
     # _____ - Display The Data as a Table. ________________________________________________________________________
-    if st.button("Display The Table Data"):
+    if st.button("Display Data in a Tabular Format "):
+        # ___ Process the form data & Calculate the trading profit / loss
+        # ___ Convert purchase price from GBX to GBP.
+        gbp_purchase = purchase_price_per_share / 100
+        # ___ Convert selling price from GBX to GBP.
+        gbp_selling = selling_price_per_share / 100
 
-        # Calculate the trading profit or lost
-        amount_of_shares = trading_budget / purchase_price_per_share
-        gross_amount = amount_of_shares * selling_price_per_share
-        profit_or_lost_made = gross_amount - trading_budget
+        amount_of_shares = trading_budget / gbp_purchase
+        gross_amount = amount_of_shares * gbp_selling
+        profit_or_lost_made = gross_amount - (trading_budget + trading_fees)
 
         # Define the data to be written as a table
         data = [
-            ['Processing_Date', 'Processing_Time', 'Company_Name', 'Trading_Budget', 'Purchase_Price_per_Share',
-             'Purchase Time', 'Selling_Price_per_Share', 'Selling_Time', 'Amount_of_Shares', 'Gross_Amount',
-             'Profit_Made'],
+            ['Processing_Date', 'Processing_Time', 'Company_Name', 'Trading_Budget', 'Trading_Fees',
+             'Purchase_Price_per_Share', 'Purchase Time', 'Selling_Price_per_Share', 'Selling_Time',
+             'Amount_of_Shares', 'Gross_Amount', 'Profit_Made'],
             [processing_date.strftime('%d-%m-%Y'), processing_time,  company_name, round(trading_budget, 2),
-             round(purchase_price_per_share, 2), purchase_time, round(selling_price_per_share, 2),
-             selling_time, round(amount_of_shares, 2), round(gross_amount, 2), round(profit_or_lost_made, 2)]]
+             round(trading_fees, 2), round(purchase_price_per_share, 2), purchase_time,
+             round(selling_price_per_share, 2), selling_time, round(amount_of_shares, 2),
+             round(gross_amount, 2), round(profit_or_lost_made, 2)]]
 
         df = pd.DataFrame(data)
 
@@ -143,19 +152,24 @@ def monitoring_trading():
     # ____ - Download CSV File.  ____________________________________________________________________________________
     # Generate a download button
     if st.button("Download CSV File"):
+        # ___ Process the form data & Calculate the trading profit / loss
+        # ___ Convert purchase price from GBX to GBP.
+        gbp_purchase = purchase_price_per_share / 100
+        # ___ Convert selling price from GBX to GBP.
+        gbp_selling = selling_price_per_share / 100
 
-        # Calculate the trading profit or lost
-        amount_of_shares = trading_budget / purchase_price_per_share
-        gross_amount = amount_of_shares * selling_price_per_share
-        profit_or_lost_made = gross_amount - trading_budget
+        amount_of_shares = trading_budget / gbp_purchase
+        gross_amount = amount_of_shares * gbp_selling
+        profit_or_lost_made = gross_amount - (trading_budget + trading_fees)
 
         data = [
-            ['Processing_Date', 'Processing_Time', 'Company_Name', 'Trading_Budget', 'Purchase_Price_per_Share',
-             'Purchase Time', 'Selling_Price_per_Share', 'Selling_Time', 'Amount_of_Shares', 'Gross_Amount',
-             'Profit_Made'],
+            ['Processing_Date', 'Processing_Time', 'Company_Name', 'Trading_Budget', 'Trading_Fees',
+             'Purchase_Price_per_Share', 'Purchase Time', 'Selling_Price_per_Share', 'Selling_Time',
+             'Amount_of_Shares', 'Gross_Amount', 'Profit_Made'],
             [processing_date.strftime('%d-%m-%Y'), processing_time, company_name, round(trading_budget, 2),
-             round(purchase_price_per_share, 2), purchase_time, round(selling_price_per_share, 2),
-             selling_time, round(amount_of_shares, 2), round(gross_amount, 2), round(profit_or_lost_made, 2)]]
+             round(trading_fees, 2), round(purchase_price_per_share, 2), purchase_time,
+             round(selling_price_per_share, 2), selling_time, round(amount_of_shares, 2),
+             round(gross_amount, 2), round(profit_or_lost_made, 2)]]
 
         df = pd.DataFrame(data)
         # Convert DataFrame to CSV File
