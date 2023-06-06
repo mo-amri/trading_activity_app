@@ -73,7 +73,7 @@ def monitoring_trading():
             st.write(f"Gross Amount: £{round(gross_amount, 2)}")
 
     # _____ - Display the Data. __________________________________________________________________________
-    if st.button("Display The Data"):
+    if st.button("Display Trading Data"):
 
         # ___ Calculate the trading profit / loss
         # ___ Convert purchase price from GBX to GBP.
