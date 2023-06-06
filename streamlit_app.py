@@ -213,7 +213,7 @@ def process_data_gbx_to_gbp(gbp):
 def converter_gbx_to_gbp():
     st.sidebar.write("GBX to GBP Converter")
 
-    with st.sidebar.form("my_form_gbx_to_gb")
+    with st.sidebar.form("my_form_gbx_to_gb"):
         gbx = st.number_input("Enter GBX value:")
         if gbx:
             gbx = float(gbx)
