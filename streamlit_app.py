@@ -211,7 +211,7 @@ def process_data_gbx_to_gbp(gbp):
 
 
 def converter_gbx_to_gbp():
-    st.sidebar.write("**GBX to GBP Converter**")
+    st.sidebar.write("GBX to GBP Converter")
 
     with st.sidebar.form("my_form_gbx_to_gb"):
         # st.header("GBX to GBP Converter")
@@ -241,7 +241,7 @@ def process_data_gbp_to_gbx(gbx):
 
 
 def converter_gbp_to_gbx():
-    st.sidebar.write("**GBP to GBX Converter**")
+    st.sidebar.write("GBP to GBX Converter")
 
     with st.sidebar.form("my_form_gbp_to_gbx"):
         # st.header("GBX to GBP Converter")
