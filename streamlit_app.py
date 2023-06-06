@@ -21,7 +21,7 @@ def monitoring_trading():
         with col2:
             processing_time = st.time_input("Processing Time Data")
 
-        company_name = st.text_input("Company Symbol:")
+        company_name = st.text_input("Company Symbol")
 
         col1, col2 = st.columns(2)
         with col1:
