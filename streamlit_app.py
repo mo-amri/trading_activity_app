@@ -1,3 +1,4 @@
+
 import streamlit as st
 import pandas as pd
 
@@ -16,11 +17,11 @@ def monitoring_trading():
         # ___Create two columns
         col1, col2 = st.columns(2)
         with col1:
-            processing_date = st.date_input("Processing Date")
+            processing_date = st.date_input("Processing Date Data")
         with col2:
-            processing_time = st.time_input("Processing Time")
+            processing_time = st.time_input("Processing Time Data")
 
-        company_name = st.text_input("Company Name:")
+        company_name = st.text_input("Company Symbol:")
 
         col1, col2 = st.columns(2)
         with col1:
@@ -89,16 +90,23 @@ def monitoring_trading():
         else:
             st.warning(f"Made a loss:  £ {round(profit_or_lost_made, 2)}")
 
+        # # Check up the result
+        # if profit_or_lost_made == 0:
+        #     st.write(f"**NO Profit Made:  £{round(profit_or_lost_made, 2)}**")
+        # elif profit_or_lost_made > 0:
+        #     st.write(f"**Profit Made:  £{round(profit_or_lost_made, 2)}**")
+        # else:
+        #     st.write(f"**Made a loos:  £{round(profit_or_lost_made, 2)}**")
 
         col1, col2 = st.columns(2)
         with col1:
-            st.write(f"Company Name: **{company_name}**")
+            st.write(f"Company Symbol: **{company_name}**")
 
         col1, col2 = st.columns(2)
         with col1:
-            st.write(f"Processing Trading Date Data: **{processing_date.strftime('%d-%m-%Y')}**")
+            st.write(f"Processing Date Data: **{processing_date.strftime('%d-%m-%Y')}**")
         with col2:
-            st.write(f"Processing Trading Time Data: **{processing_time}**")
+            st.write(f"Processing Time Data: **{processing_time}**")
 
         col1, col2 = st.columns(2)
         with col1:
@@ -138,7 +146,7 @@ def monitoring_trading():
 
         # Define the data to be written as a table
         data = [
-            ['Processing_Date', 'Processing_Time', 'Company_Name', 'Trading_Budget', 'Trading_Fees',
+            ['Processing_Date_Data', 'Processing_Time_Data', 'Company_Name', 'Trading_Budget', 'Trading_Fees',
              'Purchase_Price_per_Share', 'Purchase Time', 'Selling_Price_per_Share', 'Selling_Time',
              'Amount_of_Shares', 'Gross_Amount', 'Profit_Made'],
             [processing_date.strftime('%d-%m-%Y'), processing_time,  company_name, round(trading_budget, 2),
@@ -165,7 +173,7 @@ def monitoring_trading():
         profit_or_lost_made = gross_amount - (trading_budget + trading_fees)
 
         data = [
-            ['Processing_Date', 'Processing_Time', 'Company_Name', 'Trading_Budget', 'Trading_Fees',
+            ['Processing_Date_Data', 'Processing_Time_Data', 'Company_Name', 'Trading_Budget', 'Trading_Fees',
              'Purchase_Price_per_Share', 'Purchase Time', 'Selling_Price_per_Share', 'Selling_Time',
              'Amount_of_Shares', 'Gross_Amount', 'Profit_Made'],
             [processing_date.strftime('%d-%m-%Y'), processing_time, company_name, round(trading_budget, 2),
