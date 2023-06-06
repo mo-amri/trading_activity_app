@@ -84,54 +84,47 @@ def monitoring_trading():
 
         # Check up the result
         if profit_or_lost_made == 0:
-            st.info(f"NO Profit Made:  £{round(profit_or_lost_made, 2)}")
+            st.text(f"NO Profit Made: £{round(profit_or_lost_made, 2)}")
         elif profit_or_lost_made > 0:
-            st.success(f"Profit Made:  £{round(profit_or_lost_made, 2)}")
+            st.text(f"Profit Made: £{round(profit_or_lost_made, 2)}")
         else:
-            st.warning(f"Made a loss:  £ {round(profit_or_lost_made, 2)}")
+            st.text(f"Made a loss: £ {round(profit_or_lost_made, 2)}")
 
-        # # Check up the result
-        # if profit_or_lost_made == 0:
-        #     st.write(f"**NO Profit Made:  £{round(profit_or_lost_made, 2)}**")
-        # elif profit_or_lost_made > 0:
-        #     st.write(f"**Profit Made:  £{round(profit_or_lost_made, 2)}**")
-        # else:
-        #     st.write(f"**Made a loos:  £{round(profit_or_lost_made, 2)}**")
+      # ___Display the Data as a column layout
+       col1, col2 = st.columns(2)
+        with col1:
+            st.text(f"Company Symbol: {company_name}")
 
         col1, col2 = st.columns(2)
         with col1:
-            st.write(f"Company Symbol:  **{ company_name}**")
-
-        col1, col2 = st.columns(2)
-        with col1:
-            st.write(f"Processing Date Data: **{processing_date.strftime('%d-%m-%Y')}**")
+            st.text(f"Processing Date Data: {processing_date.strftime('%d-%m-%Y')}")
         with col2:
-            st.write(f"Processing Time Data: **{processing_time}**")
+            st.text(f"Processing Time Data: {processing_time}")
 
         col1, col2 = st.columns(2)
         with col1:
-            st.write(f"Trading Budget: **£{trading_budget}**")
+            st.text(f"Trading Budget: £{trading_budget}")
         with col2:
-            st.write(f"Trading Fees: **£{trading_fees}**")
+            st.text(f"Trading Fees: £{trading_fees}")
 
         col1, col2 = st.columns(2)
         with col1:
-            st.write(f"Price per Share: **{purchase_price_per_share} GBX**")
+            st.text(f"Price per Share: {purchase_price_per_share} GBX")
         with col2:
-            st.write(f"Purchase Time: **{purchase_time}**")
+            st.text(f"Purchase Time: {purchase_time}")
 
         col1, col2 = st.columns(2)
         with col1:
-            st.write(f"Selling Price per Share: **{selling_price_per_share} GBX**")
+            st.text(f"Selling Price per Share: {selling_price_per_share} GBX")
         with col2:
-            st.write(f"Selling Time: **{selling_time}**")
+            st.text(f"Selling Time: {selling_time}")
 
         col1, col2 = st.columns(2)
         with col1:
-            st.write(f"Amount of Shares: **{round(amount_of_shares, 2)}**")
+            st.text(f"Amount of Shares: {round(amount_of_shares, 2)}")
         with col2:
-            st.write(f"Gross Amount: **£{round(gross_amount, 2)}**")
-
+            st.text(f"Gross Amount: £{round(gross_amount, 2)}")
+            
     # _____ - Display The Data as a Table. ________________________________________________________________________
     if st.button("Display Data as a Table "):
         # ___ Process the form data & Calculate the trading profit / loss
