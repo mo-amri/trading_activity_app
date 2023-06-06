@@ -100,7 +100,7 @@ def monitoring_trading():
 
         col1, col2 = st.columns(2)
         with col1:
-            st.write(f"Company Symbol: **{ company_name}**")
+            st.write(f"Company Symbol:  **{ company_name}**")
 
         col1, col2 = st.columns(2)
         with col1:
