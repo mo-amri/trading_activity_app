@@ -1,7 +1,3 @@
-
-
-
-
 import streamlit as st
 import pandas as pd
 
@@ -93,25 +89,22 @@ def monitoring_trading():
         else:
             st.warning(f"Made a loss:  £ {round(profit_or_lost_made, 2)}")
 
-        # # Check up the result
-        # if profit_or_lost_made == 0:
-        #     st.write(f"**NO Profit Made:  £{round(profit_or_lost_made, 2)}**")
-        # elif profit_or_lost_made > 0:
-        #     st.write(f"**Profit Made:  £{round(profit_or_lost_made, 2)}**")
-        # else:
-        #     st.write(f"**Made a loos:  £{round(profit_or_lost_made, 2)}**")
-
-        col1, col2 = st.columns(2)
-        with col1:
-            st.write(f"Trading Date: **{processing_date.strftime('%d-%m-%Y')}**")
-        with col2:
-            st.write(f"Processing Time: **{processing_time}**")
 
         col1, col2 = st.columns(2)
         with col1:
             st.write(f"Company Name: **{company_name}**")
+
+        col1, col2 = st.columns(2)
+        with col1:
+            st.write(f"Processing Trading Date Data: **{processing_date.strftime('%d-%m-%Y')}**")
         with col2:
-            st.write(f"Trading Budget: **£{round(trading_budget, 2)}**")
+            st.write(f"Processing Trading Time Data: **{processing_time}**")
+
+        col1, col2 = st.columns(2)
+        with col1:
+            st.write(f"Trading Budget: **£{trading_budget}**")
+        with col2:
+            st.write(f"Trading Fees: **£{trading_fees}**")
 
         col1, col2 = st.columns(2)
         with col1:
@@ -132,7 +125,7 @@ def monitoring_trading():
             st.write(f"Gross Amount: **£{round(gross_amount, 2)}**")
 
     # _____ - Display The Data as a Table. ________________________________________________________________________
-    if st.button("Display Data in a Tabular Format "):
+    if st.button("Display Data as a Table "):
         # ___ Process the form data & Calculate the trading profit / loss
         # ___ Convert purchase price from GBX to GBP.
         gbp_purchase = purchase_price_per_share / 100
