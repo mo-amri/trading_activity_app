@@ -1,6 +1,7 @@
 
 
 
+
 import streamlit as st
 import pandas as pd
 
@@ -12,7 +13,7 @@ def monitoring_trading():
     st.title("Amri Investment Web Application")
     st.subheader("Monitoring Trading Activity")
 
-    st.sidebar.subheader("London Stock Exchange")
+    st.sidebar.write("**London Stock Exchange**")
 
     with st.sidebar.form("calculater_form"):
         # Get user input
@@ -23,7 +24,7 @@ def monitoring_trading():
         with col2:
             processing_time = st.time_input("Processing Time")
 
-        company_name = st.text_input("Trading Company Name:")
+        company_name = st.text_input("Company Name:")
 
         col1, col2 = st.columns(2)
         with col1:
@@ -65,7 +66,7 @@ def monitoring_trading():
             elif profit_or_lost_made > 0:
                 st.success(f"Profit Made:  £{round(profit_or_lost_made, 2)}")
             else:
-                st.warning(f"Made a loss:  £{round(profit_or_lost_made, 2)}")
+                st.warning(f"Made a loss:  £ {round(profit_or_lost_made, 2)}")
 
             # Display the submitted user inputs
             st.write(f"Amount of Shares: {round(amount_of_shares, 2)}")
@@ -86,37 +87,45 @@ def monitoring_trading():
 
         # Check up the result
         if profit_or_lost_made == 0:
-            st.write(f"**NO Profit Made:  £{round(profit_or_lost_made, 2)}**")
+            st.info(f"NO Profit Made:  £{round(profit_or_lost_made, 2)}")
         elif profit_or_lost_made > 0:
-            st.write(f"**Profit Made:  £{round(profit_or_lost_made, 2)}**")
+            st.success(f"Profit Made:  £{round(profit_or_lost_made, 2)}")
         else:
-            st.write(f"**Made a loos:  £{round(profit_or_lost_made, 2)}**")
+            st.warning(f"Made a loss:  £ {round(profit_or_lost_made, 2)}")
 
-        col1, col2, col = st.columns(3)
+        # # Check up the result
+        # if profit_or_lost_made == 0:
+        #     st.write(f"**NO Profit Made:  £{round(profit_or_lost_made, 2)}**")
+        # elif profit_or_lost_made > 0:
+        #     st.write(f"**Profit Made:  £{round(profit_or_lost_made, 2)}**")
+        # else:
+        #     st.write(f"**Made a loos:  £{round(profit_or_lost_made, 2)}**")
+
+        col1, col2 = st.columns(2)
         with col1:
             st.write(f"Trading Date: **{processing_date.strftime('%d-%m-%Y')}**")
         with col2:
             st.write(f"Processing Time: **{processing_time}**")
 
-        col1, col2, col = st.columns(3)
+        col1, col2 = st.columns(2)
         with col1:
             st.write(f"Company Name: **{company_name}**")
         with col2:
             st.write(f"Trading Budget: **£{round(trading_budget, 2)}**")
 
-        col1, col2, col = st.columns(3)
+        col1, col2 = st.columns(2)
         with col1:
             st.write(f"Price per Share: **{purchase_price_per_share} GBX**")
         with col2:
             st.write(f"Purchase Time: **{purchase_time}**")
 
-        col1, col2, col = st.columns(3)
+        col1, col2 = st.columns(2)
         with col1:
             st.write(f"Selling Price per Share: **{selling_price_per_share} GBX**")
         with col2:
             st.write(f"Selling Time: **{selling_time}**")
 
-        col1, col2, col = st.columns(3)
+        col1, col2 = st.columns(2)
         with col1:
             st.write(f"Amount of Shares: **{round(amount_of_shares, 2)}**")
         with col2:
@@ -209,7 +218,7 @@ def process_data_gbx_to_gbp(gbp):
 
 
 def converter_gbx_to_gbp():
-    st.sidebar.subheader("GBX to GBP Converter")
+    st.sidebar.write("**GBX to GBP Converter**")
 
     with st.sidebar.form("my_form_gbx_to_gb"):
         # st.header("GBX to GBP Converter")
@@ -239,7 +248,7 @@ def process_data_gbp_to_gbx(gbx):
 
 
 def converter_gbp_to_gbx():
-    st.sidebar.subheader("GBP to GBX Converter")
+    st.sidebar.write("**GBP to GBX Converter**")
 
     with st.sidebar.form("my_form_gbp_to_gbx"):
         # st.header("GBX to GBP Converter")
