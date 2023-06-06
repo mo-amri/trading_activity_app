@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 
@@ -21,7 +20,7 @@ def monitoring_trading():
         with col2:
             processing_time = st.time_input("Processing Time Data")
 
-        company_name = st.text_input("Company Symbol")
+        company_name = st.text_input("Company Symbol:")
 
         col1, col2 = st.columns(2)
         with col1:
@@ -90,8 +89,8 @@ def monitoring_trading():
         else:
             st.text(f"Made a loss: £ {round(profit_or_lost_made, 2)}")
 
-      # ___Display the Data as a column layout
-       col1, col2 = st.columns(2)
+        # ___Display the Data as a column layout
+        col1, col2 = st.columns(2)
         with col1:
             st.text(f"Company Symbol: {company_name}")
 
@@ -124,7 +123,7 @@ def monitoring_trading():
             st.text(f"Amount of Shares: {round(amount_of_shares, 2)}")
         with col2:
             st.text(f"Gross Amount: £{round(gross_amount, 2)}")
-            
+
     # _____ - Display The Data as a Table. ________________________________________________________________________
     if st.button("Display Data as a Table "):
         # ___ Process the form data & Calculate the trading profit / loss
