@@ -93,12 +93,13 @@ def monitoring_trading():
         col1, col2 = st.columns(2)
         with col1:
             st.text(f"Company Symbol: {company_name}")
+            st.markdown("<h1 style='color: salmon;'>f'Company Symbol: {company_name}'</h1>", unsafe_allow_html=True)
 
         col1, col2 = st.columns(2)
         with col1:
-            st.text(f"Processing Date Data: {processing_date.strftime('%d-%m-%Y')}")
+            st.text(f"Data Processing Date: {processing_date.strftime('%d-%m-%Y')}")
         with col2:
-            st.text(f"Processing Time Data: {processing_time}")
+            st.text(f"Data Processing Time: {processing_time}")
 
         col1, col2 = st.columns(2)
         with col1:
