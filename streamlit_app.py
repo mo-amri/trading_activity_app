@@ -138,7 +138,7 @@ def monitoring_trading():
 
         # Define the data to be written as a table
         data = [
-            ['Processing_Date_Data', 'Processing_Time_Data', 'Company_Name', 'Trading_Budget', 'Trading_Fees',
+            ['Data_Processing_Date', 'Data_Processing_Time', 'Company_Name', 'Trading_Budget', 'Trading_Fees',
              'Purchase_Price_per_Share', 'Purchase Time', 'Selling_Price_per_Share', 'Selling_Time',
              'Amount_of_Shares', 'Gross_Amount', 'Profit_Made'],
             [processing_date.strftime('%d-%m-%Y'), processing_time,  company_name, round(trading_budget, 2),
@@ -165,7 +165,7 @@ def monitoring_trading():
         profit_or_lost_made = gross_amount - (trading_budget + trading_fees)
 
         data = [
-            ['Processing_Date_Data', 'Processing_Time_Data', 'Company_Name', 'Trading_Budget', 'Trading_Fees',
+            ['Data_Processing_Date', 'Data_Processing_Time', 'Company_Name', 'Trading_Budget', 'Trading_Fees',
              'Purchase_Price_per_Share', 'Purchase Time', 'Selling_Price_per_Share', 'Selling_Time',
              'Amount_of_Shares', 'Gross_Amount', 'Profit_Made'],
             [processing_date.strftime('%d-%m-%Y'), processing_time, company_name, round(trading_budget, 2),
