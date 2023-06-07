@@ -93,7 +93,6 @@ def monitoring_trading():
         col1, col2 = st.columns(2)
         with col1:
             st.text(f"Company Symbol: {company_name}")
-            st.markdown("<h1 style='color: salmon;'>f'Company Symbol: {company_name}'</h1>", unsafe_allow_html=True)
 
         col1, col2 = st.columns(2)
         with col1:
