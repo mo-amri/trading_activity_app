@@ -190,9 +190,6 @@ def monitoring_trading():
 
         tables = pd.read_html(url)
 
-        # ___Check how many table
-        len(tables)
-
         # ___Read Table
         df = tables[0]
 
@@ -200,7 +197,7 @@ def monitoring_trading():
         df['Date & Time'] = pd.to_datetime('today').strftime("%d/%m/%Y %H:%M:%S")
 
         # ___Print the Initial DataFrame
-        df
+        st.write(df)
 
     # ******* Download Top Gainers Table from Trading View Website **********************************************
     # Generate a download button
