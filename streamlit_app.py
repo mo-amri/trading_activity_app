@@ -1,6 +1,8 @@
 
 import streamlit as st
 import pandas as pd
+import requests
+from bs4 import BeautifulSoup
 
 
 
@@ -198,8 +200,36 @@ def monitoring_trading():
 
         # ___Print the Initial DataFrame
         st.write(df)
+    
+    ####################################--DEBUGGING--###########################################
+    if st.button("Scrape UK Top Gainers"):
+    url = 'https://www.tradingview.com/markets/stocks-united-kingdom/market-movers-gainers/'
 
-    # ******* Download Top Gainers Table from Trading View Website **********************************************
+    # Send an HTTP GET request to the URL
+    response = requests.get(url)
+
+    # Check if the request was successful (status code 200)
+    if response.status_code == 200:
+        # Parse the HTML content using BeautifulSoup
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        # Find the table containing the top gainers
+        table = soup.find('table')
+
+        # Extract the table data into a list of lists
+        data = []
+        for row in table.find_all('tr'):
+            row_data = [cell.get_text(strip=True) for cell in row.find_all('td')]
+            data.append(row_data)
+
+        # Display the scraped data in a Streamlit table
+        st.table(data)
+    else:
+        st.error("Failed to retrieve data. Please try again.")
+
+    #########################################---END---################################################
+    
+    # ******* Download Top Gainers Table from Trading View Website **************************************
     # Generate a download button
     if st.button("Download Top Gainers Table"):
         # url = 'https://www.tradingview.com/markets/stocks-usa/market-movers-gainers/' # US Market
