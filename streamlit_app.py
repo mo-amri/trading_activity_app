@@ -233,34 +233,37 @@ def monitoring_trading():
         dataframe = pd.read_csv(uploaded_file)
         st.write(dataframe)
 
-        # Display the Search as a column layout
-        col1, col2 = st.columns(2)
-        with col1:
-            search_column_name = st.text_input('Enter Column Name')
-        with col2:
-            search_column_value = st.text_input('Enter Row Value')
+        with st.form('Querying'):
+            # Display the Search as a column layout
+            col1, col2 = st.columns(2)
+            with col1:
+                search_column_name = st.text_input('Enter Column Name')
+            with col2:
+                search_column_value = st.text_input('Enter Row Value')
 
-        if st.button('Generate'):
-            # Check if the search column name is provided
-            if len(search_column_name .strip()) == 0:
-                st.error("Enter a column name!")
-            # Check if the search column exists in the DataFrame
-            elif search_column_name not in dataframe.columns:
-                st.warning(f"Column name {search_column_name} not found in the table.")
-            # Check if the search column value is provided
-            elif len(search_column_value.strip()) == 0:
-                st.error("Enter a row value!")
-            # Check if the search column value exists in the DataFrame
-            elif search_column_value not in dataframe[search_column_name].values:
-                st.warning(f"Value {search_column_value} not found in the column {search_column_name }")
-            else:
-                # Iterate over each row in the DataFrame
-                for index, row in dataframe.iterrows():
-                    # Check if the search value matches the desired column
-                    if row[search_column_name ] == search_column_value:
-                        # Entry found, perform the desired action
-                        st.info("Entry Found")
-                        st.write(row)
+            # Add a submit button
+            submit_button = st.form_submit_button("Generate")
+            if submit_button:
+                # Check if the search column name is provided
+                if len(search_column_name .strip()) == 0:
+                    st.error("Enter a column name!")
+                # Check if the search column exists in the DataFrame
+                elif search_column_name not in dataframe.columns:
+                    st.warning(f"Column name {search_column_name} not found in the table.")
+                # Check if the search column value is provided
+                elif len(search_column_value.strip()) == 0:
+                    st.error("Enter a row value!")
+                # Check if the search column value exists in the DataFrame
+                elif search_column_value not in dataframe[search_column_name].values:
+                    st.warning(f"Value {search_column_value} not found in the column {search_column_name }")
+                else:
+                    # Iterate over each row in the DataFrame
+                    for index, row in dataframe.iterrows():
+                        # Check if the search value matches the desired column
+                        if row[search_column_name ] == search_column_value:
+                            # Entry found, perform the desired action
+                            st.info("Entry Found")
+                            st.write(row)
 
     # *************************************************************************************************************
     # ******************************END OF Function monitoring_trading()******************************************
