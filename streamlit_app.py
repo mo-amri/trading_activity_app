@@ -210,9 +210,6 @@ def monitoring_trading():
 
         tables = pd.read_html(url)
 
-        # ___Check how many table
-        len(tables)
-
         # ___Read Table
         df = tables[0]
 
