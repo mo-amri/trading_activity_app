@@ -203,7 +203,7 @@ def monitoring_trading():
     
     ####################################--DEBUGGING--###########################################
     if st.button("Scrape UK Top Gainers"):
-    url = 'https://www.tradingview.com/markets/stocks-united-kingdom/market-movers-gainers/'
+        url = 'https://www.tradingview.com/markets/stocks-united-kingdom/market-movers-gainers/'
 
     # Send an HTTP GET request to the URL
     response = requests.get(url)
