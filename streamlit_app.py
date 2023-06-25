@@ -73,7 +73,7 @@ def monitoring_trading():
             st.write(f"Gross Amount: £{round(gross_amount, 2)}")
 
     # _____ - Display the Data. __________________________________________________________________________
-    if st.button("Display Trading Data"):
+    if st.button("Display Trading Activity"):
 
         # ___ Calculate the trading profit / loss
         # ___ Convert purchase price from GBX to GBP.
@@ -129,7 +129,7 @@ def monitoring_trading():
             st.text(f"Gross Amount: £{round(gross_amount, 2)}")
 
     # _____ - Display The Data as a Table. ________________________________________________________________________
-    if st.button("Display Data as a Table "):
+    if st.button("Generate a Trading Activity Table "):
         # ___ Process the form data & Calculate the trading profit / loss
         # ___ Convert purchase price from GBX to GBP.
         gbp_purchase = purchase_price_per_share / 100
@@ -157,7 +157,7 @@ def monitoring_trading():
 
     # ******* Download CSV File.  *************************************************************************
     # Generate a download button
-    if st.button("Download Trading Data"):
+    if st.button("Download CSV Trading Activity"):
         # ___ Process the form data & Calculate the trading profit / loss
         # ___ Convert purchase price from GBX to GBP.
         gbp_purchase = purchase_price_per_share / 100
@@ -185,70 +185,6 @@ def monitoring_trading():
         st.download_button(label="Click here to download", data=csv_file,
                            file_name=f"{company_name}.csv")
 
-    # ******* Scrape The Top gainer table from Trading View Website ********************************************
-    if st.button("Display The UK Top Gainers Table"):
-        # url = 'https://www.tradingview.com/markets/stocks-usa/market-movers-gainers/' # US Market
-        url = 'https://www.tradingview.com/markets/stocks-united-kingdom/market-movers-gainers/'  # UK Market
-
-        tables = pd.read_html(url)
-
-        # ___Read Table
-        df = tables[0]
-
-        # ___Add column of the current time to the table
-        df['Date & Time'] = pd.to_datetime('today').strftime("%d/%m/%Y %H:%M:%S")
-
-        # ___Print the Initial DataFrame
-        st.write(df)
-    
-    ####################################--DEBUGGING--###########################################
-    if st.button("Scrape UK Top Gainers"):
-        url = 'https://www.tradingview.com/markets/stocks-united-kingdom/market-movers-gainers/'
-
-    # Send an HTTP GET request to the URL
-    response = requests.get(url)
-
-    # Check if the request was successful (status code 200)
-    if response.status_code == 200:
-        # Parse the HTML content using BeautifulSoup
-        soup = BeautifulSoup(response.content, 'html.parser')
-
-        # Find the table containing the top gainers
-        table = soup.find('table')
-
-        # Extract the table data into a list of lists
-        data = []
-        for row in table.find_all('tr'):
-            row_data = [cell.get_text(strip=True) for cell in row.find_all('td')]
-            data.append(row_data)
-
-        # Display the scraped data in a Streamlit table
-        st.table(data)
-    else:
-        st.error("Failed to retrieve data. Please try again.")
-
-    #########################################---END---################################################
-    
-    # ******* Download Top Gainers Table from Trading View Website **************************************
-    # Generate a download button
-    if st.button("Download Top Gainers Table"):
-        # url = 'https://www.tradingview.com/markets/stocks-usa/market-movers-gainers/' # US Market
-        url = 'https://www.tradingview.com/markets/stocks-united-kingdom/market-movers-gainers/'  # UK Market
-
-        tables = pd.read_html(url)
-
-        # ___Read Table
-        df = tables[0]
-
-        # ___Add column of the current time to the table
-        df['Date & Time'] = pd.to_datetime('today').strftime("%d/%m/%Y %H:%M:%S")
-
-        # Convert DataFrame to CSV File
-        csv_file = df.to_csv(index=False, sep=',')
-
-        # Provide the CSV string for download
-        st.download_button(label="Click here to download", data=csv_file,
-                           file_name="Top_Gainers.csv")
 
     # ****** Display a File Uploader Widget & Querying File Uploaded with User Prompts ***************************
     uploaded_file = st.file_uploader("Upload a CSV file for querying", type=['csv'])
