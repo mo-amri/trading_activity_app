@@ -90,14 +90,6 @@ def monitoring_trading():
         else:
             st.text(f"Made a loss: £ {round(profit_or_lost_made, 2)}")
 
-        # # Check up the result
-        # if profit_or_lost_made == 0:
-        #     st.write(f"**NO Profit Made:  £{round(profit_or_lost_made, 2)}**")
-        # elif profit_or_lost_made > 0:
-        #     st.write(f"**Profit Made:  £{round(profit_or_lost_made, 2)}**")
-        # else:
-        #     st.write(f"**Made a loos:  £{round(profit_or_lost_made, 2)}**")
-
         # ___Display the Data as a column layout
         col1, col2 = st.columns(2)
         with col1:
