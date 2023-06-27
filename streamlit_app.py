@@ -1,6 +1,8 @@
 
 import streamlit as st
 import pandas as pd
+import requests
+from bs4 import BeautifulSoup
 
 
 
@@ -222,6 +224,28 @@ def monitoring_trading():
                             # Entry found, perform the desired action
                             st.info("Entry Found")
                             st.write(row)
+
+        st.title("Website Scraper")
+        url = 'https://www.tradingview.com/markets/stocks-united-kingdom/market-movers-gainers/'
+        if st.button("Scrape"):
+            response = requests.get(url)
+            soup = BeautifulSoup(response.content, 'html.parser')
+    
+            # Perform web scraping operations using BeautifulSoup
+            table = soup.find('table')
+            rows = table.find_all('tr')
+            data = []
+            for row in rows:
+                columns = row.find_all('td')
+                if columns:
+                    row_data = [column.text.strip() for column in columns]
+                    data.append(row_data)
+    
+            # Display the scraped data
+            st.write("Scraped data:")
+            for row in data:
+                st.write(row)
+
 
     # *************************************************************************************************************
     # ******************************END OF Function monitoring_trading()******************************************
