@@ -66,9 +66,9 @@ def monitoring_trading():
             else:
                 st.warning(f"Made a loss:  £ {round(profit_or_lost_made, 2)}")
 
-            # Display the submitted user inputs
-            st.write(f"Amount of Shares: {round(amount_of_shares, 2)}")
-            st.write(f"Gross Amount: £{round(gross_amount, 2)}")
+            ###___ Display the Amount of Shares & Gross Amount
+            # st.write(f"Amount of Shares: {round(amount_of_shares, 2)}")
+            # st.write(f"Gross Amount: £{round(gross_amount, 2)}")
 
     # _____ - Display the Data. __________________________________________________________________________
     if st.button("Display Trading Activity Data"):
