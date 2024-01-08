@@ -1,10 +1,8 @@
-
 import streamlit as st
 import pandas as pd
 import warnings
 
 warnings.filterwarnings('ignore')
-
 
 
 def monitoring_trading():
@@ -14,19 +12,26 @@ def monitoring_trading():
     st.title("Amri Investment Web Application")
     st.subheader("Monitoring Trading Activity")
 
-    st.sidebar.write("**London Stock Exchange**")
+    st.sidebar.write("London Stock Exchange")
 
     with st.sidebar.form("calculater_form"):
         # Get user input
+        stock_symbol = st.text_input("Stock Symbol")
         # ___Create two columns
         col1, col2 = st.columns(2)
         with col1:
-            processing_date = st.date_input("Processing Date Data")
+            trading_date = st.date_input("Trading Date")
         with col2:
-            processing_time = st.time_input("Processing Time Data")
+            isin = st.text_input("ISIN")
 
-        company_name = st.text_input("Company Name")
+        # ___Create two columns
+        col1, col2 = st.columns(2)
+        with col1:
+            sector = st.text_input("Sector")
+        with col2:
+            industry = st.text_input("Industry")
 
+        # ___Create two columns
         col1, col2 = st.columns(2)
         with col1:
             trading_budget = st.number_input("Trading Budget GBP", min_value=0.0)
@@ -69,41 +74,38 @@ def monitoring_trading():
             else:
                 st.warning(f"Made a loss:  £ {round(profit_or_lost_made, 2)}")
 
-            ###___ Display the Amount of Shares & Gross Amount
+            # ___ Display the Amount of Shares & Gross Amount
             # st.write(f"Amount of Shares: {round(amount_of_shares, 2)}")
             # st.write(f"Gross Amount: £{round(gross_amount, 2)}")
 
     # _____ - Display the Data. __________________________________________________________________________
     if st.button("Display Trading Activity Data"):
 
-        # ___ Calculate the trading profit / loss
         # ___ Convert purchase price from GBX to GBP.
         gbp_purchase = purchase_price_per_share / 100
         # ___ Convert selling price from GBX to GBP.
         gbp_selling = selling_price_per_share / 100
 
+        # ___ Calculate the trading profit / loss.
         amount_of_shares = trading_budget / gbp_purchase
         gross_amount = amount_of_shares * gbp_selling
         profit_or_lost_made = gross_amount - (trading_budget + trading_fees)
 
-        # Check up the result
-        if profit_or_lost_made == 0:
-            st.text(f"NO Profit Made: £{round(profit_or_lost_made, 2)}")
-        elif profit_or_lost_made > 0:
-            st.text(f"Profit Made: £{round(profit_or_lost_made, 2)}")
-        else:
-            st.text(f"Made a loss: £ {round(profit_or_lost_made, 2)}")
+        # ___Display the Stock Symbol
+        st.text(f"Stock Symbol: {stock_symbol}")
 
         # ___Display the Data as a column layout
         col1, col2 = st.columns(2)
         with col1:
-            st.text(f"Company Name: {company_name}")
+            st.text(f"Trading Date: {trading_date.strftime('%d-%m-%Y')}")
+        with col2:
+            st.text(f"ISIN: {isin}")
 
         col1, col2 = st.columns(2)
         with col1:
-            st.text(f"Data Processing Date: {processing_date.strftime('%d-%m-%Y')}")
+            st.text(f"Sector: {sector}")
         with col2:
-            st.text(f"Data Processing Time: {processing_time}")
+            st.text(f"Industry: {industry}")
 
         col1, col2 = st.columns(2)
         with col1:
@@ -113,7 +115,7 @@ def monitoring_trading():
 
         col1, col2 = st.columns(2)
         with col1:
-            st.text(f"Price per Share: {purchase_price_per_share} GBX")
+            st.text(f"Purchase Price per Share: {purchase_price_per_share} GBX")
         with col2:
             st.text(f"Purchase Time: {purchase_time}")
 
@@ -129,6 +131,14 @@ def monitoring_trading():
         with col2:
             st.text(f"Gross Amount: £{round(gross_amount, 2)}")
 
+        # Print the profit / lost result:
+        if profit_or_lost_made == 0:
+            st.info(f"NO Profit Made: £{round(profit_or_lost_made, 2)}")
+        elif profit_or_lost_made > 0:
+            st.success(f"Profit Made: £{round(profit_or_lost_made, 2)}")
+        else:
+            st.warning(f"Made a loss: £ {round(profit_or_lost_made, 2)}")
+
     # _____ - Display The Data as a Table. ________________________________________________________________________
     if st.button("Generate a Trading Activity Table "):
         # ___ Process the form data & Calculate the trading profit / loss
@@ -143,10 +153,10 @@ def monitoring_trading():
 
         # Define the data to be written as a table
         data = [
-            ['Processing_Date_Data', 'Processing_Time_Data', 'Company_Name', 'Trading_Budget', 'Trading_Fees',
-             'Purchase_Price_per_Share', 'Purchase Time', 'Selling_Price_per_Share', 'Selling_Time',
-             'Amount_of_Shares', 'Gross_Amount', 'Profit_Made'],
-            [processing_date.strftime('%d-%m-%Y'), processing_time,  company_name, round(trading_budget, 2),
+            ['Stock Symbol', 'Trading Date', 'ISIN', 'Sector', 'Industry', 'Trading Budget', 'Trading Fees',
+             'Purchase Price per Share', 'Purchase Time', 'Selling Price per Share', 'Selling Time',
+             'Amount of Shares', 'Gross Amount', 'Profit Made'],
+            [stock_symbol, trading_date, isin, sector, industry, round(trading_budget, 2),
              round(trading_fees, 2), round(purchase_price_per_share, 2), purchase_time,
              round(selling_price_per_share, 2), selling_time, round(amount_of_shares, 2),
              round(gross_amount, 2), round(profit_or_lost_made, 2)]]
@@ -169,11 +179,12 @@ def monitoring_trading():
         gross_amount = amount_of_shares * gbp_selling
         profit_or_lost_made = gross_amount - (trading_budget + trading_fees)
 
+        # Define the data to be written as a table
         data = [
-            ['Processing_Date_Data', 'Processing_Time_Data', 'Company_Name', 'Trading_Budget', 'Trading_Fees',
-             'Purchase_Price_per_Share', 'Purchase Time', 'Selling_Price_per_Share', 'Selling_Time',
-             'Amount_of_Shares', 'Gross_Amount', 'Profit_Made'],
-            [processing_date.strftime('%d-%m-%Y'), processing_time, company_name, round(trading_budget, 2),
+            ['Stock Symbol', 'Trading Date', 'ISIN', 'Sector', 'Industry', 'Trading Budget', 'Trading Fees',
+             'Purchase Price per Share', 'Purchase Time', 'Selling Price per Share', 'Selling Time',
+             'Amount of Shares', 'Gross Amount', 'Profit Made'],
+            [stock_symbol, trading_date, isin, sector, industry, round(trading_budget, 2),
              round(trading_fees, 2), round(purchase_price_per_share, 2), purchase_time,
              round(selling_price_per_share, 2), selling_time, round(amount_of_shares, 2),
              round(gross_amount, 2), round(profit_or_lost_made, 2)]]
@@ -184,11 +195,11 @@ def monitoring_trading():
 
         # Provide the CSV string for download
         st.download_button(label="Click here to download", data=csv_file,
-                           file_name=f"{company_name}.csv")
-
+                           file_name=f"{stock_symbol}.csv")
 
     # ****** Display a File Uploader Widget & Querying File Uploaded with User Prompts ***************************
     uploaded_file = st.file_uploader("Upload a CSV file for querying", type=['csv'])
+
     if uploaded_file is not None:
         # Can be used wherever a "file-like" object is accepted:
         dataframe = pd.read_csv(uploaded_file)
@@ -206,28 +217,27 @@ def monitoring_trading():
             submit_button = st.form_submit_button("Generate")
             if submit_button:
                 # Check if the search column name is provided
-                if len(search_column_name .strip()) == 0:
+                if not search_column_name.strip():
                     st.error("Enter a column name!")
                 # Check if the search column exists in the DataFrame
                 elif search_column_name not in dataframe.columns:
                     st.warning(f"Column name {search_column_name} not found in the table.")
                 # Check if the search column value is provided
-                elif len(search_column_value.strip()) == 0:
+                elif not search_column_value.strip():
                     st.error("Enter a row value!")
                 # Check if the search column value exists in the DataFrame
                 elif search_column_value not in dataframe[search_column_name].values:
-                    st.warning(f"Value {search_column_value} not found in the column {search_column_name }")
+                    st.warning(f"Value {search_column_value} not found in the column {search_column_name}")
                 else:
-                    # Iterate over each row in the DataFrame
-                    for index, row in dataframe.iterrows():
-                        # Check if the search value matches the desired column
-                        if row[search_column_name ] == search_column_value:
-                            # Entry found, perform the desired action
-                            st.info("Entry Found")
-                            st.write(row)
+                    # Filter the DataFrame based on the user's input
+                    filtered_dataframe = dataframe[dataframe[search_column_name] == search_column_value]
 
-
-
+                    if not filtered_dataframe.empty:
+                        # Display the matching entries
+                        st.success(f"Entries Found for {search_column_name} = {search_column_value}")
+                        st.write(filtered_dataframe)
+                    else:
+                        st.info("No matching entries found.")
     # *************************************************************************************************************
     # ******************************END OF Function monitoring_trading()******************************************
     # *************************************************************************************************************
@@ -245,7 +255,7 @@ def process_data_gbx_to_gbp(gbp):
 
 
 def converter_gbx_to_gbp():
-    st.sidebar.write("**GBX to GBP Converter**")
+    st.sidebar.write("GBX to GBP Converter")
 
     with st.sidebar.form("my_form_gbx_to_gb"):
         # st.header("GBX to GBP Converter")
@@ -275,7 +285,7 @@ def process_data_gbp_to_gbx(gbx):
 
 
 def converter_gbp_to_gbx():
-    st.sidebar.write("**GBP to GBX Converter**")
+    st.sidebar.write("GBP to GBX Converter")
 
     with st.sidebar.form("my_form_gbp_to_gbx"):
         # st.header("GBX to GBP Converter")
@@ -298,7 +308,6 @@ if __name__ == "__main__":
     monitoring_trading()
     converter_gbx_to_gbp()
     converter_gbp_to_gbx()
-
 
 
 
