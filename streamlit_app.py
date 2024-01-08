@@ -1,4 +1,4 @@
-# beta version 1
+# beta version 1.0
 import streamlit as st
 import pandas as pd
 import warnings
