@@ -1,4 +1,4 @@
-# beta version 1.01
+# beta version 1.01 - Create an index of Stock symbol to the dataframe 
 import streamlit as st
 import pandas as pd
 import warnings
