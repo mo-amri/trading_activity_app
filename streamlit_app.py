@@ -1,4 +1,8 @@
-# beta version 1.01 - Create an index of Stock symbol to the dataframe 
+# Beta V1.01 Enhancements 
+# Used a dictionary to create the DataFrame, making the code cleaner and more readable.
+# Removed unnecessary indexing in the data list.
+# Set the "Stock Symbol" as the index in a more explicit way.
+
 import streamlit as st
 import pandas as pd
 import warnings
