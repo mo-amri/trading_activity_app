@@ -1,4 +1,4 @@
-# beta version 1.0
+# beta version 1.01
 import streamlit as st
 import pandas as pd
 import warnings
@@ -152,17 +152,28 @@ def monitoring_trading():
         gross_amount = amount_of_shares * gbp_selling
         profit_or_lost_made = gross_amount - (trading_budget + trading_fees)
 
-        # Define the data to be written as a table
-        data = [
-            ['Stock Symbol', 'Trading Date', 'ISIN', 'Sector', 'Industry', 'Trading Budget', 'Trading Fees',
-             'Purchase Price per Share', 'Purchase Time', 'Selling Price per Share', 'Selling Time',
-             'Amount of Shares', 'Gross Amount', 'Profit Made'],
-            [stock_symbol, trading_date, isin, sector, industry, round(trading_budget, 2),
-             round(trading_fees, 2), round(purchase_price_per_share, 2), purchase_time,
-             round(selling_price_per_share, 2), selling_time, round(amount_of_shares, 2),
-             round(gross_amount, 2), round(profit_or_lost_made, 2)]]
+         # Create a dictionary of the data to be displayed as a table
+        data = {
+            'Stock Symbol': [stock_symbol],
+            'Trading Date': [trading_date],
+            'ISIN': [isin],
+            'Sector': [sector],
+            'Industry': [industry],
+            'Trading Budget': [round(trading_budget, 2)],
+            'Trading Fees': [round(trading_fees, 2)],
+            'Purchase Price per Share': [round(purchase_price_per_share, 2)],
+            'Purchase Time': [purchase_time],
+            'Selling Price per Share': [round(selling_price_per_share, 2)],
+            'Selling Time': [selling_time],
+            'Amount of Shares': [round(amount_of_shares, 2)],
+            'Gross Amount': [round(gross_amount, 2)],
+            'Profit Made': [round(profit_or_lost_made, 2)]
+        }
 
         df = pd.DataFrame(data)
+
+        # Set the "Stock Symbol" column as the index
+        df.set_index('Stock Symbol', inplace=True)
 
         # Display the table
         st.table(df)
@@ -180,19 +191,31 @@ def monitoring_trading():
         gross_amount = amount_of_shares * gbp_selling
         profit_or_lost_made = gross_amount - (trading_budget + trading_fees)
 
-        # Define the data to be written as a table
-        data = [
-            ['Stock Symbol', 'Trading Date', 'ISIN', 'Sector', 'Industry', 'Trading Budget', 'Trading Fees',
-             'Purchase Price per Share', 'Purchase Time', 'Selling Price per Share', 'Selling Time',
-             'Amount of Shares', 'Gross Amount', 'Profit Made'],
-            [stock_symbol, trading_date, isin, sector, industry, round(trading_budget, 2),
-             round(trading_fees, 2), round(purchase_price_per_share, 2), purchase_time,
-             round(selling_price_per_share, 2), selling_time, round(amount_of_shares, 2),
-             round(gross_amount, 2), round(profit_or_lost_made, 2)]]
+       # Create a dictionary of the data to be displayed as a table
+        data = {
+            'Stock Symbol': [stock_symbol],
+            'Trading Date': [trading_date],
+            'ISIN': [isin],
+            'Sector': [sector],
+            'Industry': [industry],
+            'Trading Budget': [round(trading_budget, 2)],
+            'Trading Fees': [round(trading_fees, 2)],
+            'Purchase Price per Share': [round(purchase_price_per_share, 2)],
+            'Purchase Time': [purchase_time],
+            'Selling Price per Share': [round(selling_price_per_share, 2)],
+            'Selling Time': [selling_time],
+            'Amount of Shares': [round(amount_of_shares, 2)],
+            'Gross Amount': [round(gross_amount, 2)],
+            'Profit Made': [round(profit_or_lost_made, 2)]
+        }
 
         df = pd.DataFrame(data)
+
+        # Set the "Stock Symbol" column as the index
+        df.set_index('Stock Symbol', inplace=True)
+
         # Convert DataFrame to CSV File
-        csv_file = df.to_csv(index=False, sep=',')
+        csv_file = df.to_csv(index=True, sep=',')
 
         # Provide the CSV string for download
         st.download_button(label="Click here to download", data=csv_file,
