@@ -1,8 +1,7 @@
-# Beta V1.01 Enhancements 
-# Used a dictionary to create the DataFrame, making the code cleaner and more readable.
-# Removed unnecessary indexing in the data list.
-# Set the "Stock Symbol" as the index in a more explicit way.
-
+#########################################################################################
+# Beta V1.02 Enhancements
+# Simplify the functionality of the Browse files widget  by let it only for browsing files.
+#########################################################################################
 import streamlit as st
 import pandas as pd
 import warnings
@@ -22,9 +21,11 @@ def monitoring_trading():
     with st.sidebar.form("calculater_form"):
         # Get user input
         stock_symbol = st.text_input("Stock Symbol")
+
         # ___Create two columns
         col1, col2 = st.columns(2)
         with col1:
+            # Get the trading date
             trading_date = st.date_input("Trading Date")
         with col2:
             isin = st.text_input("ISIN")
@@ -156,7 +157,7 @@ def monitoring_trading():
         gross_amount = amount_of_shares * gbp_selling
         profit_or_lost_made = gross_amount - (trading_budget + trading_fees)
 
-         # Create a dictionary of the data to be displayed as a table
+        # Create a dictionary of the data to be displayed as a table
         data = {
             'Stock Symbol': [stock_symbol],
             'Trading Date': [trading_date],
@@ -195,7 +196,7 @@ def monitoring_trading():
         gross_amount = amount_of_shares * gbp_selling
         profit_or_lost_made = gross_amount - (trading_budget + trading_fees)
 
-       # Create a dictionary of the data to be displayed as a table
+        # Create a dictionary of the data to be displayed as a table
         data = {
             'Stock Symbol': [stock_symbol],
             'Trading Date': [trading_date],
@@ -226,46 +227,11 @@ def monitoring_trading():
                            file_name=f"{stock_symbol}.csv")
 
     # ****** Display a File Uploader Widget & Querying File Uploaded with User Prompts ***************************
-    uploaded_file = st.file_uploader("Upload a CSV file for querying", type=['csv'])
-
+    uploaded_file = st.file_uploader("Upload a CSV file")
     if uploaded_file is not None:
-        # Can be used wherever a "file-like" object is accepted:
         dataframe = pd.read_csv(uploaded_file)
         st.write(dataframe)
 
-        with st.form('Querying'):
-            # Display the Search as a column layout
-            col1, col2 = st.columns(2)
-            with col1:
-                search_column_name = st.text_input('Enter Column Name')
-            with col2:
-                search_column_value = st.text_input('Enter Row Value')
-
-            # Add a submit button
-            submit_button = st.form_submit_button("Generate")
-            if submit_button:
-                # Check if the search column name is provided
-                if not search_column_name.strip():
-                    st.error("Enter a column name!")
-                # Check if the search column exists in the DataFrame
-                elif search_column_name not in dataframe.columns:
-                    st.warning(f"Column name {search_column_name} not found in the table.")
-                # Check if the search column value is provided
-                elif not search_column_value.strip():
-                    st.error("Enter a row value!")
-                # Check if the search column value exists in the DataFrame
-                elif search_column_value not in dataframe[search_column_name].values:
-                    st.warning(f"Value {search_column_value} not found in the column {search_column_name}")
-                else:
-                    # Filter the DataFrame based on the user's input
-                    filtered_dataframe = dataframe[dataframe[search_column_name] == search_column_value]
-
-                    if not filtered_dataframe.empty:
-                        # Display the matching entries
-                        st.success(f"Entries Found for {search_column_name} = {search_column_value}")
-                        st.write(filtered_dataframe)
-                    else:
-                        st.info("No matching entries found.")
     # *************************************************************************************************************
     # ******************************END OF Function monitoring_trading()******************************************
     # *************************************************************************************************************
@@ -336,7 +302,3 @@ if __name__ == "__main__":
     monitoring_trading()
     converter_gbx_to_gbp()
     converter_gbp_to_gbx()
-
-
-
-
