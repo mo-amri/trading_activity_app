@@ -1,7 +1,8 @@
 #########################################################################################
-# Beta V1.02 Enhancements
-# Simplify the functionality of the Browse files widget  by let it only for browsing files.
+# Beta V1.03 Enhancements
+# refactoring the calculate profit/Loss user interface by:
 #########################################################################################
+
 import streamlit as st
 import pandas as pd
 import warnings
@@ -26,7 +27,7 @@ def monitoring_trading():
         col1, col2 = st.columns(2)
         with col1:
             # Get the trading date
-            trading_date = st.date_input("Trading Date")
+            date = st.date_input("Date")
         with col2:
             isin = st.text_input("ISIN")
 
@@ -47,16 +48,16 @@ def monitoring_trading():
         # ___Create four columns
         col1, col2 = st.columns(2)
         with col1:
-            # ----------------------------------------"Please enter the Purchase Price per Share in the input field."
-            purchase_price_per_share = st.number_input("Purchase Share Price GBX", min_value=0.0)
+            # ------------------------"Please enter the Purchase Price per Share in the input field."
+            buy_price_per_share = st.number_input("Buy Share Price GBX", min_value=0.0)
         with col2:
-            # ----------------------------"Enter The Time at Which The purchase Price Occurred"
-            purchase_time = st.text_input("Purchase Time")
+            # ------------------------"Enter The Time at Which The purchase Price Occurred"
+            buy_date_time = st.text_input("Buy date/Time")
         col1, col2 = st.columns(2)
         with col1:
-            selling_price_per_share = st.number_input('Selling Share Price GBX', min_value=0.0)
+            sell_price_per_share = st.number_input('Sell Share Price GBX', min_value=0.0)
         with col2:
-            selling_time = st.text_input("Selling Time")
+            sell_date_time = st.text_input("Sell Date/Time")
 
         # Add a submit button
         submit_button = st.form_submit_button("Calculate Profit / Loss")
@@ -64,9 +65,9 @@ def monitoring_trading():
         if submit_button:
             # ___ Process the form data & Calculate the trading profit / loss
             # ___ Convert purchase price from GBX to GBP.
-            gbp_purchase = purchase_price_per_share / 100
+            gbp_purchase = buy_price_per_share / 100
             # ___ Convert selling price from GBX to GBP.
-            gbp_selling = selling_price_per_share / 100
+            gbp_selling = sell_price_per_share / 100
 
             amount_of_shares = trading_budget / gbp_purchase
             gross_amount = amount_of_shares * gbp_selling
@@ -88,9 +89,9 @@ def monitoring_trading():
     if st.button("Display Trading Activity Data"):
 
         # ___ Convert purchase price from GBX to GBP.
-        gbp_purchase = purchase_price_per_share / 100
+        gbp_purchase = buy_price_per_share / 100
         # ___ Convert selling price from GBX to GBP.
-        gbp_selling = selling_price_per_share / 100
+        gbp_selling = sell_price_per_share / 100
 
         # ___ Calculate the trading profit / loss.
         amount_of_shares = trading_budget / gbp_purchase
@@ -103,7 +104,7 @@ def monitoring_trading():
         # ___Display the Data as a column layout
         col1, col2 = st.columns(2)
         with col1:
-            st.text(f"Trading Date: {trading_date.strftime('%d-%m-%Y')}")
+            st.text(f"Date: {date.strftime('%d-%m-%Y')}")
         with col2:
             st.text(f"ISIN: {isin}")
 
@@ -121,15 +122,15 @@ def monitoring_trading():
 
         col1, col2 = st.columns(2)
         with col1:
-            st.text(f"Purchase Price per Share: {purchase_price_per_share} GBX")
+            st.text(f"Buy Price per Share: {buy_price_per_share} GBX")
         with col2:
-            st.text(f"Purchase Time: {purchase_time}")
+            st.text(f"Buy Date/Time: {buy_date_time}")
 
         col1, col2 = st.columns(2)
         with col1:
-            st.text(f"Selling Price per Share: {selling_price_per_share} GBX")
+            st.text(f"Sell Price per Share: {sell_price_per_share} GBX")
         with col2:
-            st.text(f"Selling Time: {selling_time}")
+            st.text(f"Sell Date/Time: {sell_date_time}")
 
         col1, col2 = st.columns(2)
         with col1:
@@ -149,9 +150,9 @@ def monitoring_trading():
     if st.button("Generate a Trading Activity Table "):
         # ___ Process the form data & Calculate the trading profit / loss
         # ___ Convert purchase price from GBX to GBP.
-        gbp_purchase = purchase_price_per_share / 100
+        gbp_purchase = buy_price_per_share / 100
         # ___ Convert selling price from GBX to GBP.
-        gbp_selling = selling_price_per_share / 100
+        gbp_selling = sell_price_per_share / 100
 
         amount_of_shares = trading_budget / gbp_purchase
         gross_amount = amount_of_shares * gbp_selling
@@ -160,16 +161,16 @@ def monitoring_trading():
         # Create a dictionary of the data to be displayed as a table
         data = {
             'Stock Symbol': [stock_symbol],
-            'Trading Date': [trading_date],
+            'Date': [date],
             'ISIN': [isin],
             'Sector': [sector],
             'Industry': [industry],
             'Trading Budget': [round(trading_budget, 2)],
             'Trading Fees': [round(trading_fees, 2)],
-            'Purchase Price per Share': [round(purchase_price_per_share, 2)],
-            'Purchase Time': [purchase_time],
-            'Selling Price per Share': [round(selling_price_per_share, 2)],
-            'Selling Time': [selling_time],
+            'Buy Price per Share': [round(buy_price_per_share, 2)],
+            'Buy Date/Time': [buy_date_time],
+            'Sell Price per Share': [round(sell_price_per_share, 2)],
+            'Sell Date/Time': [sell_date_time],
             'Amount of Shares': [round(amount_of_shares, 2)],
             'Gross Amount': [round(gross_amount, 2)],
             'Profit Made': [round(profit_or_lost_made, 2)]
@@ -188,9 +189,9 @@ def monitoring_trading():
     if st.button("Download CSV Trading Activity"):
         # ___ Process the form data & Calculate the trading profit / loss
         # ___ Convert purchase price from GBX to GBP.
-        gbp_purchase = purchase_price_per_share / 100
+        gbp_purchase = buy_price_per_share / 100
         # ___ Convert selling price from GBX to GBP.
-        gbp_selling = selling_price_per_share / 100
+        gbp_selling = sell_price_per_share / 100
 
         amount_of_shares = trading_budget / gbp_purchase
         gross_amount = amount_of_shares * gbp_selling
@@ -199,16 +200,16 @@ def monitoring_trading():
         # Create a dictionary of the data to be displayed as a table
         data = {
             'Stock Symbol': [stock_symbol],
-            'Trading Date': [trading_date],
+            'Date': [date],
             'ISIN': [isin],
             'Sector': [sector],
             'Industry': [industry],
             'Trading Budget': [round(trading_budget, 2)],
             'Trading Fees': [round(trading_fees, 2)],
-            'Purchase Price per Share': [round(purchase_price_per_share, 2)],
-            'Purchase Time': [purchase_time],
-            'Selling Price per Share': [round(selling_price_per_share, 2)],
-            'Selling Time': [selling_time],
+            'Buy Price per Share': [round(buy_price_per_share, 2)],
+            'Buy Date/Time': [buy_date_time],
+            'Sell Price per Share': [round(sell_price_per_share, 2)],
+            'Sell Date/Time': [sell_date_time],
             'Amount of Shares': [round(amount_of_shares, 2)],
             'Gross Amount': [round(gross_amount, 2)],
             'Profit Made': [round(profit_or_lost_made, 2)]
@@ -226,7 +227,7 @@ def monitoring_trading():
         st.download_button(label="Click here to download", data=csv_file,
                            file_name=f"{stock_symbol}.csv")
 
-    # ****** Display a File Uploader Widget & Querying File Uploaded with User Prompts ***************************
+    # ******  Uploader Widget for Uploading a CSV File  ***************************
     uploaded_file = st.file_uploader("Upload a CSV file")
     if uploaded_file is not None:
         dataframe = pd.read_csv(uploaded_file)
@@ -302,3 +303,4 @@ if __name__ == "__main__":
     monitoring_trading()
     converter_gbx_to_gbp()
     converter_gbp_to_gbx()
+
