@@ -187,7 +187,7 @@ def monitoring_trading():
 
     # ******* Download CSV File.  *************************************************************************
     # Generate a download button
-    if st.button("Download CSV Trading Activity Table"):
+    if st.button("Download CSV Table of Trading Activity"):
         # ___ Process the form data & Calculate the trading profit / loss
         # ___ Convert purchase price from GBX to GBP.
         gbp_purchase = buy_price_per_share / 100
