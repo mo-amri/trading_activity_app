@@ -1,7 +1,8 @@
-#########################################################################################
-# Beta V1.03 Enhancements
-# refactoring the calculate profit/Loss user interface by:
-#########################################################################################
+##########################################################################################################
+# Beta V1.04 Enhancements
+# refactoring the Generate a Trading Activity Table & the Download CSV Trading Activity Table Methods by:
+# Changing the order of the column names table.
+##########################################################################################################
 
 import streamlit as st
 import pandas as pd
@@ -161,19 +162,19 @@ def monitoring_trading():
         # Create a dictionary of the data to be displayed as a table
         data = {
             'Stock Symbol': [stock_symbol],
-            'Date': [date],
-            'ISIN': [isin],
-            'Sector': [sector],
-            'Industry': [industry],
+            'Profit Made': [round(profit_or_lost_made, 2)],
             'Trading Budget': [round(trading_budget, 2)],
             'Trading Fees': [round(trading_fees, 2)],
             'Buy Price per Share': [round(buy_price_per_share, 2)],
             'Buy Date/Time': [buy_date_time],
             'Sell Price per Share': [round(sell_price_per_share, 2)],
             'Sell Date/Time': [sell_date_time],
+            'ISIN': [isin],
+            'Sector': [sector],
+            'Industry': [industry],
             'Amount of Shares': [round(amount_of_shares, 2)],
             'Gross Amount': [round(gross_amount, 2)],
-            'Profit Made': [round(profit_or_lost_made, 2)]
+            'Date': [date]
         }
 
         df = pd.DataFrame(data)
@@ -186,7 +187,7 @@ def monitoring_trading():
 
     # ******* Download CSV File.  *************************************************************************
     # Generate a download button
-    if st.button("Download CSV Trading Activity"):
+    if st.button("Download CSV Trading Activity Table"):
         # ___ Process the form data & Calculate the trading profit / loss
         # ___ Convert purchase price from GBX to GBP.
         gbp_purchase = buy_price_per_share / 100
@@ -200,19 +201,19 @@ def monitoring_trading():
         # Create a dictionary of the data to be displayed as a table
         data = {
             'Stock Symbol': [stock_symbol],
-            'Date': [date],
-            'ISIN': [isin],
-            'Sector': [sector],
-            'Industry': [industry],
+            'Profit Made': [round(profit_or_lost_made, 2)],
             'Trading Budget': [round(trading_budget, 2)],
             'Trading Fees': [round(trading_fees, 2)],
             'Buy Price per Share': [round(buy_price_per_share, 2)],
             'Buy Date/Time': [buy_date_time],
             'Sell Price per Share': [round(sell_price_per_share, 2)],
             'Sell Date/Time': [sell_date_time],
+            'ISIN': [isin],
+            'Sector': [sector],
+            'Industry': [industry],
             'Amount of Shares': [round(amount_of_shares, 2)],
             'Gross Amount': [round(gross_amount, 2)],
-            'Profit Made': [round(profit_or_lost_made, 2)]
+            'Date': [date]
         }
 
         df = pd.DataFrame(data)
@@ -303,4 +304,3 @@ if __name__ == "__main__":
     monitoring_trading()
     converter_gbx_to_gbp()
     converter_gbp_to_gbx()
-
