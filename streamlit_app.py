@@ -1,6 +1,6 @@
 ##########################################################################################################
 # Beta V1.05 Enhancements
-# Adding a Trading Activity radio button to the Web application interface
+# Adding a Trading Activity radio button to the Web application interface.
 # Adding a new Trading Strategies column to the trading activity Table.
 ##########################################################################################################
 
