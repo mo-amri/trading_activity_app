@@ -1,7 +1,7 @@
 ##########################################################################################################
-# Beta V1.04 Enhancements
-# refactoring the Generate a Trading Activity Table & the Download CSV Trading Activity Table Methods by:
-# Changing the order of the column names table.
+# Beta V1.05 Enhancements
+# Adding a Trading Activity radio button to the Web application interface
+# Adding a new Trading Strategies column to the trading activity Table.
 ##########################################################################################################
 
 import streamlit as st
@@ -24,13 +24,31 @@ def monitoring_trading():
         # Get user input
         stock_symbol = st.text_input("Stock Symbol")
 
+        # Store the initial value of widgets in session state
+        if "visibility" not in st.session_state:
+            st.session_state.visibility = "visible"
+            st.session_state.disabled = False
         # ___Create two columns
         col1, col2 = st.columns(2)
         with col1:
-            # Get the trading date
-            date = st.date_input("Date")
+            # Get the trading Strategies
+            trading_strategies = st.selectbox(
+                "Trading Strategies",
+                ("Day Trading", "Swing Trading", "Value Investing"),
+                label_visibility=st.session_state.visibility,
+                disabled=st.session_state.disabled,
+            )
         with col2:
+            # Get the trading trading_date
+            trading_date = st.date_input("Trading Date")
+
+        # ___Create two columns
+        col1, col2 = st.columns(2)
+        with col1:
+            # Get the trading trading_date
             isin = st.text_input("ISIN")
+        with col2:
+            company_website = st.text_input("Company Website")
 
         # ___Create two columns
         col1, col2 = st.columns(2)
@@ -53,7 +71,7 @@ def monitoring_trading():
             buy_price_per_share = st.number_input("Buy Share Price GBX", min_value=0.0)
         with col2:
             # ------------------------"Enter The Time at Which The purchase Price Occurred"
-            buy_date_time = st.text_input("Buy date/Time")
+            buy_date_time = st.text_input("Buy trading_date/Time")
         col1, col2 = st.columns(2)
         with col1:
             sell_price_per_share = st.number_input('Sell Share Price GBX', min_value=0.0)
@@ -105,9 +123,16 @@ def monitoring_trading():
         # ___Display the Data as a column layout
         col1, col2 = st.columns(2)
         with col1:
-            st.text(f"Date: {date.strftime('%d-%m-%Y')}")
+            st.text(f"Trading Strategies: {trading_strategies}")
         with col2:
+            st.text(f"Trading Date: {trading_date.strftime('%d-%m-%Y')}")
+
+        # ___Display the Data as a column layout
+        col1, col2 = st.columns(2)
+        with col1:
             st.text(f"ISIN: {isin}")
+        with col2:
+            st.text(f"Company Website: {company_website}")
 
         col1, col2 = st.columns(2)
         with col1:
@@ -162,9 +187,10 @@ def monitoring_trading():
         # Create a dictionary of the data to be displayed as a table
         data = {
             'Stock Symbol': [stock_symbol],
-            'Profit Made': [round(profit_or_lost_made, 2)],
+            'Trading Strategies': [trading_strategies],
+            'Trading Date': [trading_date],
             'Trading Budget': [round(trading_budget, 2)],
-            'Trading Fees': [round(trading_fees, 2)],
+            'Profit Made': [round(profit_or_lost_made, 2)],
             'Buy Price per Share': [round(buy_price_per_share, 2)],
             'Buy Date/Time': [buy_date_time],
             'Sell Price per Share': [round(sell_price_per_share, 2)],
@@ -174,7 +200,7 @@ def monitoring_trading():
             'Industry': [industry],
             'Amount of Shares': [round(amount_of_shares, 2)],
             'Gross Amount': [round(gross_amount, 2)],
-            'Date': [date]
+            'Trading Fees': [round(trading_fees, 2)]
         }
 
         df = pd.DataFrame(data)
@@ -201,9 +227,10 @@ def monitoring_trading():
         # Create a dictionary of the data to be displayed as a table
         data = {
             'Stock Symbol': [stock_symbol],
-            'Profit Made': [round(profit_or_lost_made, 2)],
+            'Trading Strategies': [trading_strategies],
+            'Trading Date': [trading_date],
             'Trading Budget': [round(trading_budget, 2)],
-            'Trading Fees': [round(trading_fees, 2)],
+            'Profit Made': [round(profit_or_lost_made, 2)],
             'Buy Price per Share': [round(buy_price_per_share, 2)],
             'Buy Date/Time': [buy_date_time],
             'Sell Price per Share': [round(sell_price_per_share, 2)],
@@ -213,7 +240,7 @@ def monitoring_trading():
             'Industry': [industry],
             'Amount of Shares': [round(amount_of_shares, 2)],
             'Gross Amount': [round(gross_amount, 2)],
-            'Date': [date]
+            'Trading Fees': [round(trading_fees, 2)]
         }
 
         df = pd.DataFrame(data)
