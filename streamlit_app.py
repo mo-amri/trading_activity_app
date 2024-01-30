@@ -21,15 +21,6 @@ def monitoring_trading():
     st.sidebar.title("London Stock Exchange")
     with st.sidebar.form("calculater_form"):
 
-        # # Get the user input of trading satisfaction
-        # st.write("Satisfaction With The Trade Closure")
-        #
-        # overall_satisfaction = st.select_slider(
-        #     "Overall Satisfaction",
-        #     options=["Very Unsatisfied", "Unsatisfied", "Neutral", "Satisfied", "Very Satisfied"],
-        #     format_func=lambda x: x,
-        # )
-
         # Get user input of the stock symbol
         stock_symbol = st.text_input("Stock Symbol")
 
