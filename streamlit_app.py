@@ -18,7 +18,7 @@ def monitoring_trading():
     st.title("Amri Investment Web Application")
     st.subheader("Monitoring Trading Activity")
 
-    st.sidebar.title("London Stock Exchange")
+    st.sidebar.header("London Stock Exchange")
     with st.sidebar.form("calculater_form"):
 
         # Get user input of the stock symbol
