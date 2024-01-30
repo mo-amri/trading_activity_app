@@ -1,7 +1,7 @@
 ##########################################################################################################
-# Beta V1.05 Enhancements
-# Adding a Trading Activity radio button to the Web application interface.
-# Adding a new Trading Strategies column to the trading activity Table.
+# Beta v1.06 Enhancements
+# Adding a survey satisfaction question to the interface
+# How were satisfaction with the trade closure.
 ##########################################################################################################
 
 import streamlit as st
@@ -18,16 +18,26 @@ def monitoring_trading():
     st.title("Amri Investment Web Application")
     st.subheader("Monitoring Trading Activity")
 
-    st.sidebar.write("London Stock Exchange")
-
+    st.sidebar.title("London Stock Exchange")
     with st.sidebar.form("calculater_form"):
-        # Get user input
+
+        # # Get the user input of trading satisfaction
+        # st.write("Satisfaction With The Trade Closure")
+        #
+        # overall_satisfaction = st.select_slider(
+        #     "Overall Satisfaction",
+        #     options=["Very Unsatisfied", "Unsatisfied", "Neutral", "Satisfied", "Very Satisfied"],
+        #     format_func=lambda x: x,
+        # )
+
+        # Get user input of the stock symbol
         stock_symbol = st.text_input("Stock Symbol")
 
         # Store the initial value of widgets in session state
         if "visibility" not in st.session_state:
             st.session_state.visibility = "visible"
             st.session_state.disabled = False
+
         # ___Create two columns
         col1, col2 = st.columns(2)
         with col1:
@@ -37,9 +47,11 @@ def monitoring_trading():
                 ("Day Trading", "Swing Trading", "Value Investing"),
                 label_visibility=st.session_state.visibility,
                 disabled=st.session_state.disabled,
+
             )
+
         with col2:
-            # Get the trading trading_date
+            # Get the trading date
             trading_date = st.date_input("Trading Date")
 
         # ___Create two columns
@@ -71,12 +83,21 @@ def monitoring_trading():
             buy_price_per_share = st.number_input("Buy Share Price GBX", min_value=0.0)
         with col2:
             # ------------------------"Enter The Time at Which The purchase Price Occurred"
-            buy_date_time = st.text_input("Buy date/Time")
+            buy_date_time = st.text_input("Buy trading_date/Time")
         col1, col2 = st.columns(2)
         with col1:
             sell_price_per_share = st.number_input('Sell Share Price GBX', min_value=0.0)
         with col2:
             sell_date_time = st.text_input("Sell Date/Time")
+
+        # Get the user input of trading satisfaction
+        st.write("Satisfaction With The Trade Closure")
+
+        overall_satisfaction = st.select_slider(
+            "Overall Satisfaction",
+            options=["Very Unsatisfied", "Unsatisfied", "Neutral", "Satisfied", "Very Satisfied"],
+            format_func=lambda x: x,
+        )
 
         # Add a submit button
         submit_button = st.form_submit_button("Calculate Profit / Loss")
@@ -91,6 +112,8 @@ def monitoring_trading():
             amount_of_shares = trading_budget / gbp_purchase
             gross_amount = amount_of_shares * gbp_selling
             profit_or_lost_made = gross_amount - (trading_budget + trading_fees)
+
+            # st.info(f"Your satisfaction response '{overall_satisfaction}' has been recorded. Thank you!")
 
             # Check up the result
             if profit_or_lost_made == 0:
@@ -119,6 +142,9 @@ def monitoring_trading():
 
         # ___Display the Stock Symbol
         st.text(f"Stock Symbol: {stock_symbol}")
+
+        # ___Display the level of satisfaction with the trade closure
+        st.text(f"Closing Deal Satisfaction: {overall_satisfaction}")
 
         # ___Display the Data as a column layout
         col1, col2 = st.columns(2)
@@ -187,6 +213,7 @@ def monitoring_trading():
         # Create a dictionary of the data to be displayed as a table
         data = {
             'Stock Symbol': [stock_symbol],
+            'Closing Deal Satisfaction': [overall_satisfaction],
             'Trading Strategies': [trading_strategies],
             'Trading Date': [trading_date],
             'Trading Budget': [round(trading_budget, 2)],
@@ -228,6 +255,7 @@ def monitoring_trading():
         # Create a dictionary of the data to be displayed as a table
         data = {
             'Stock Symbol': [stock_symbol],
+            'Closing Deal Satisfaction': [overall_satisfaction],
             'Trading Strategies': [trading_strategies],
             'Trading Date': [trading_date],
             'Trading Budget': [round(trading_budget, 2)],
@@ -267,9 +295,8 @@ def monitoring_trading():
     # ******************************END OF Function monitoring_trading()******************************************
     # *************************************************************************************************************
 
+
 # ******* Convert GBX to GBP. *********************************
-
-
 def calculate_gbx_to_gbp(gbx_amount):
     gbp_amount = gbx_amount / 100
     return gbp_amount
@@ -333,3 +360,4 @@ if __name__ == "__main__":
     monitoring_trading()
     converter_gbx_to_gbp()
     converter_gbp_to_gbx()
+    
