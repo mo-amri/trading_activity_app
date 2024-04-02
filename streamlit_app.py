@@ -1,7 +1,6 @@
 ##########################################################################################################
-# Beta v1.06 Enhancements
-# Adding a survey satisfaction question to the interface
-# How were satisfaction with the trade closure.
+# Beta v1.07 Enhancements
+# Adding a string for currency symbol presentation & rounding to 2 figure.
 ##########################################################################################################
 
 import streamlit as st
@@ -74,7 +73,7 @@ def monitoring_trading():
             buy_price_per_share = st.number_input("Buy Share Price GBX", min_value=0.0)
         with col2:
             # ------------------------"Enter The Time at Which The purchase Price Occurred"
-            buy_date_time = st.text_input("Buy date/Time")
+            buy_date_time = st.text_input("Buy trading_date/Time")
         col1, col2 = st.columns(2)
         with col1:
             sell_price_per_share = st.number_input('Sell Share Price GBX', min_value=0.0)
@@ -106,13 +105,15 @@ def monitoring_trading():
 
             # st.info(f"Your satisfaction response '{overall_satisfaction}' has been recorded. Thank you!")
 
-            # Check up the result
+            # ___Check up the result & displayed.
+            # create a string for currency presentation & rounding to 2 figure.
+            spec: str = ',.2f'
             if profit_or_lost_made == 0:
-                st.info(f"NO Profit Made:  £{round(profit_or_lost_made, 2)}")
+                st.info(f"NO Profit Made: £{profit_or_lost_made: {spec}}")
             elif profit_or_lost_made > 0:
-                st.success(f"Profit Made:  £{round(profit_or_lost_made, 2)}")
+                st.success(f"Profit Made:  £{profit_or_lost_made: {spec}}")
             else:
-                st.warning(f"Made a loss:  £ {round(profit_or_lost_made, 2)}")
+                st.warning(f"Made a loss:  £ {profit_or_lost_made: {spec}}")
 
             # ___ Display the Amount of Shares & Gross Amount
             # st.write(f"Amount of Shares: {round(amount_of_shares, 2)}")
@@ -157,11 +158,13 @@ def monitoring_trading():
         with col2:
             st.text(f"Industry: {industry}")
 
+        # create a string for currency presentation & rounding to 2 figure.
+        spec: str = ',.2f'
         col1, col2 = st.columns(2)
         with col1:
-            st.text(f"Trading Budget: £{trading_budget}")
+            st.text(f"Trading Budget: £{trading_budget:{spec}}")
         with col2:
-            st.text(f"Trading Fees: £{trading_fees}")
+            st.text(f"Trading Fees: £{trading_fees:{spec}}")
 
         col1, col2 = st.columns(2)
         with col1:
@@ -177,17 +180,17 @@ def monitoring_trading():
 
         col1, col2 = st.columns(2)
         with col1:
-            st.text(f"Amount of Shares: {round(amount_of_shares, 2)}")
+            st.text(f"Amount of Shares: {amount_of_shares:{spec}}")
         with col2:
-            st.text(f"Gross Amount: £{round(gross_amount, 2)}")
+            st.text(f"Gross Amount: £{gross_amount:{spec}}")
 
-        # Print the profit / lost result:
+        # ___Check up the result & displayed.
         if profit_or_lost_made == 0:
-            st.info(f"NO Profit Made: £{round(profit_or_lost_made, 2)}")
+            st.info(f"NO Profit Made: £{profit_or_lost_made:{spec}}")
         elif profit_or_lost_made > 0:
-            st.success(f"Profit Made: £{round(profit_or_lost_made, 2)}")
+            st.success(f"Profit Made:  £{profit_or_lost_made:{spec}}")
         else:
-            st.warning(f"Made a loss: £ {round(profit_or_lost_made, 2)}")
+            st.warning(f"Made a loss:  £ {profit_or_lost_made:{spec}}")
 
     # _____ - Display The Data as a Table. ________________________________________________________________________
     if st.button("Generate a Trading Activity Table "):
@@ -201,25 +204,29 @@ def monitoring_trading():
         gross_amount = amount_of_shares * gbp_selling
         profit_or_lost_made = gross_amount - (trading_budget + trading_fees)
 
-        # Create a dictionary of the data to be displayed as a table
+        # ___Create a dictionary of the data to be displayed as a table
+        # create a string for currency presentation & rounding to 2 figure.
+        spec: str = ',.2f'
+        # Create a string for rounding currency variable to 2 figure.
+        round_2_figure: str = '.2f'
         data = {
             'Stock Symbol': [stock_symbol],
             'Closing Deal Satisfaction': [overall_satisfaction],
             'Trading Strategies': [trading_strategies],
-            'Trading Date': [trading_date],
-            'Trading Budget': [round(trading_budget, 2)],
-            'Profit Made': [round(profit_or_lost_made, 2)],
-            'Buy Price per Share': [round(buy_price_per_share, 2)],
+            'Trading Date': [trading_date.strftime('%d-%m-%Y')],
+            'Trading Budget': [f'£{trading_budget:{spec}}'],
+            'Profit Made': [f'£{profit_or_lost_made: {spec}}'],
+            'Buy Price per Share': [f'{buy_price_per_share: {round_2_figure}} GBX'],
             'Buy Date/Time': [buy_date_time],
-            'Sell Price per Share': [round(sell_price_per_share, 2)],
+            'Sell Price per Share': [f'{sell_price_per_share: {round_2_figure}} GBX'],
             'Sell Date/Time': [sell_date_time],
             'ISIN': [isin],
             'Company Website': [company_website],
             'Sector': [sector],
             'Industry': [industry],
-            'Amount of Shares': [round(amount_of_shares, 2)],
-            'Gross Amount': [round(gross_amount, 2)],
-            'Trading Fees': [round(trading_fees, 2)]
+            'Amount of Shares': [f'{amount_of_shares: {spec}}'],
+            'Gross Amount': [f'£{gross_amount:{spec}}'],
+            'Trading Fees': [f'£{trading_fees:{spec}}']
         }
 
         df = pd.DataFrame(data)
@@ -243,25 +250,29 @@ def monitoring_trading():
         gross_amount = amount_of_shares * gbp_selling
         profit_or_lost_made = gross_amount - (trading_budget + trading_fees)
 
-        # Create a dictionary of the data to be displayed as a table
+        # ___Create a dictionary of the data to be displayed as a table
+        # create a string for currency presentation & rounding to 2 figure.
+        spec: str = ',.2f'
+        # Create a string for rounding currency variable to 2 figure.
+        round_2_figure: str = '.2f'
         data = {
             'Stock Symbol': [stock_symbol],
             'Closing Deal Satisfaction': [overall_satisfaction],
             'Trading Strategies': [trading_strategies],
-            'Trading Date': [trading_date],
-            'Trading Budget': [round(trading_budget, 2)],
-            'Profit Made': [round(profit_or_lost_made, 2)],
-            'Buy Price per Share': [round(buy_price_per_share, 2)],
+            'Trading Date': [trading_date.strftime('%d-%m-%Y')],
+            'Trading Budget': [f'£{trading_budget:{spec}}'],
+            'Profit Made': [f'£{profit_or_lost_made: {spec}}'],
+            'Buy Price per Share': [f'{buy_price_per_share: {round_2_figure}} GBX'],
             'Buy Date/Time': [buy_date_time],
-            'Sell Price per Share': [round(sell_price_per_share, 2)],
+            'Sell Price per Share': [f'{sell_price_per_share: {round_2_figure}} GBX'],
             'Sell Date/Time': [sell_date_time],
             'ISIN': [isin],
             'Company Website': [company_website],
             'Sector': [sector],
             'Industry': [industry],
-            'Amount of Shares': [round(amount_of_shares, 2)],
-            'Gross Amount': [round(gross_amount, 2)],
-            'Trading Fees': [round(trading_fees, 2)]
+            'Amount of Shares': [f'{amount_of_shares: {spec}}'],
+            'Gross Amount': [f'£{gross_amount:{spec}}'],
+            'Trading Fees': [f'£{trading_fees:{spec}}']
         }
 
         df = pd.DataFrame(data)
@@ -294,7 +305,7 @@ def calculate_gbx_to_gbp(gbx_amount):
 
 
 def process_data_gbx_to_gbp(gbp):
-    st.write("GBP Value: (£)", gbp)  # round(gbp, 2)
+    st.write(f"GBP Value: £ {gbp}")  # round(gbp, 2)
 
 
 def converter_gbx_to_gbp():
@@ -324,7 +335,7 @@ def calculate_gbp_to_gbx(gbp_amount):
 
 def process_data_gbp_to_gbx(gbx):
     # Process the form data
-    st.write("GBX Value: (GBX)", gbx)
+    st.write(f"GBX Value: {gbx} GBX")
 
 
 def converter_gbp_to_gbx():
