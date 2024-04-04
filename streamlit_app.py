@@ -1,6 +1,6 @@
 ##########################################################################################################
-# Beta v1.07 Enhancements
-# Adding a string for currency symbol presentation & rounding to 2 figure.
+# Beta v1.08 Enhancements
+# Changing the amount of shares fild name with the quantity of shares. 
 ##########################################################################################################
 
 import streamlit as st
@@ -180,7 +180,7 @@ def monitoring_trading():
 
         col1, col2 = st.columns(2)
         with col1:
-            st.text(f"Amount of Shares: {amount_of_shares:{spec}}")
+            st.text(f"Quantity of Shares: {amount_of_shares}")
         with col2:
             st.text(f"Gross Amount: £{gross_amount:{spec}}")
 
@@ -192,7 +192,7 @@ def monitoring_trading():
         else:
             st.warning(f"Made a loss:  £ {profit_or_lost_made:{spec}}")
 
-    # _____ - Display The Data as a Table. ________________________________________________________________________
+    # _____Display The Data as a Table. ________________________________________________________________________
     if st.button("Generate a Trading Activity Table "):
         # ___ Process the form data & Calculate the trading profit / loss
         # ___ Convert purchase price from GBX to GBP.
@@ -224,7 +224,7 @@ def monitoring_trading():
             'Company Website': [company_website],
             'Sector': [sector],
             'Industry': [industry],
-            'Amount of Shares': [f'{amount_of_shares: {spec}}'],
+            'Quantity of Shares': [f'{amount_of_shares}'],
             'Gross Amount': [f'£{gross_amount:{spec}}'],
             'Trading Fees': [f'£{trading_fees:{spec}}']
         }
@@ -270,7 +270,7 @@ def monitoring_trading():
             'Company Website': [company_website],
             'Sector': [sector],
             'Industry': [industry],
-            'Amount of Shares': [f'{amount_of_shares: {spec}}'],
+            'Quantity of Shares': [f'{amount_of_shares}'],
             'Gross Amount': [f'£{gross_amount:{spec}}'],
             'Trading Fees': [f'£{trading_fees:{spec}}']
         }
