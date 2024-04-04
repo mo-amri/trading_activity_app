@@ -1,6 +1,6 @@
 ##########################################################################################################
 # Beta v1.08 Enhancements
-# Changing the amount of shares fild name with the quantity of shares. 
+# Changing the amount of shares fild name with the quantity of shares.
 ##########################################################################################################
 
 import streamlit as st
@@ -160,6 +160,8 @@ def monitoring_trading():
 
         # create a string for currency presentation & rounding to 2 figure.
         spec: str = ',.2f'
+        # Create a string for rounding currency variable to 2 figure.
+        round_2_figure: str = '.2f'
         col1, col2 = st.columns(2)
         with col1:
             st.text(f"Trading Budget: £{trading_budget:{spec}}")
@@ -180,7 +182,7 @@ def monitoring_trading():
 
         col1, col2 = st.columns(2)
         with col1:
-            st.text(f"Quantity of Shares: {amount_of_shares}")
+            st.text(f"Quantity of Shares: {amount_of_shares: {round_2_figure}}")
         with col2:
             st.text(f"Gross Amount: £{gross_amount:{spec}}")
 
@@ -224,7 +226,7 @@ def monitoring_trading():
             'Company Website': [company_website],
             'Sector': [sector],
             'Industry': [industry],
-            'Quantity of Shares': [f'{amount_of_shares}'],
+            'Quantity of Shares': [f'{amount_of_shares: {round_2_figure}}'],
             'Gross Amount': [f'£{gross_amount:{spec}}'],
             'Trading Fees': [f'£{trading_fees:{spec}}']
         }
@@ -270,7 +272,7 @@ def monitoring_trading():
             'Company Website': [company_website],
             'Sector': [sector],
             'Industry': [industry],
-            'Quantity of Shares': [f'{amount_of_shares}'],
+            'Quantity of Shares': [f'{amount_of_shares: {round_2_figure}}'],
             'Gross Amount': [f'£{gross_amount:{spec}}'],
             'Trading Fees': [f'£{trading_fees:{spec}}']
         }
