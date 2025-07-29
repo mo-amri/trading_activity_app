@@ -291,7 +291,6 @@ def monitoring_trading():
                            file_name=f"{stock_symbol}.csv")
 
     # ****************** Combine multiple CSV files into one. And then download the merging csv file *****************
-    st.set_page_config(page_title="CSV Combiner", layout="centered")
 
     st.subheader("📂 CSV Combiner")
     st.markdown("Upload multiple CSV files and download a single combined file.")
