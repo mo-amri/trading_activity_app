@@ -1,11 +1,12 @@
 ##########################################################################################################
-# Beta v1.08 Enhancements
-# Changing the amount of shares fild name with the quantity of shares.
+# Beta v1.09 Enhancements:
+# Added a method to combine multiple CSV files into one. And then download the merging csv file.
+# Comment the  Uploader Widget for Uploading a CSV File
 ##########################################################################################################
-
 import streamlit as st
 import pandas as pd
 import warnings
+import io
 
 warnings.filterwarnings('ignore')
 
@@ -73,7 +74,7 @@ def monitoring_trading():
             buy_price_per_share = st.number_input("Buy Share Price GBX", min_value=0.0)
         with col2:
             # ------------------------"Enter The Time at Which The purchase Price Occurred"
-            buy_date_time = st.text_input("Buy Date/Time")
+            buy_date_time = st.text_input("Buy trading_date/Time")
         col1, col2 = st.columns(2)
         with col1:
             sell_price_per_share = st.number_input('Sell Share Price GBX', min_value=0.0)
@@ -119,7 +120,7 @@ def monitoring_trading():
             # st.write(f"Amount of Shares: {round(amount_of_shares, 2)}")
             # st.write(f"Gross Amount: £{round(gross_amount, 2)}")
 
-    # _____ - Display the Data. __________________________________________________________________________
+    # *************************** Display the Data as a Text Format. ***************************************************
     if st.button("Display Trading Activity Data"):
 
         # ___ Convert purchase price from GBX to GBP.
@@ -194,7 +195,7 @@ def monitoring_trading():
         else:
             st.warning(f"Made a loss:  £ {profit_or_lost_made:{spec}}")
 
-    # _____Display The Data as a Table. ________________________________________________________________________
+    # ***********************  Display The Data as a CSV Table. ************************************
     if st.button("Generate a Trading Activity Table "):
         # ___ Process the form data & Calculate the trading profit / loss
         # ___ Convert purchase price from GBX to GBP.
@@ -239,7 +240,7 @@ def monitoring_trading():
         # Display the table
         st.table(df)
 
-    # ******* Download CSV File.  *************************************************************************
+    # *************************** Download the data as a CSV File. ********************************************
     # Generate a download button
     if st.button("Download CSV Table of Trading Activity"):
         # ___ Process the form data & Calculate the trading profit / loss
@@ -289,11 +290,46 @@ def monitoring_trading():
         st.download_button(label="Click here to download", data=csv_file,
                            file_name=f"{stock_symbol}.csv")
 
-    # ******  Uploader Widget for Uploading a CSV File  ***************************
-    uploaded_file = st.file_uploader("Upload a CSV file")
-    if uploaded_file is not None:
-        dataframe = pd.read_csv(uploaded_file)
-        st.write(dataframe)
+    # ****************** Combine multiple CSV files into one. And then download the merging csv file *****************
+    st.set_page_config(page_title="CSV Combiner", layout="centered")
+
+    st.subheader("📂 CSV Combiner")
+    st.markdown("Upload multiple CSV files and download a single combined file.")
+
+    # File uploader
+    uploaded_files = st.file_uploader("Upload CSV files", type="csv", accept_multiple_files=True)
+
+    if uploaded_files:
+        try:
+            # Read and combine
+            df_list = [pd.read_csv(file) for file in uploaded_files]
+            combined_df = pd.concat(df_list, ignore_index=True)
+
+            # Preview
+            st.success("✅ Files combined successfully!")
+            st.write("Preview of combined data:")
+            st.dataframe(combined_df.head())
+
+            # Download
+            csv_buffer = io.StringIO()
+            combined_df.to_csv(csv_buffer, index=False)
+            st.download_button(
+                label="📥 Download Combined CSV",
+                data=csv_buffer.getvalue(),
+                file_name="combined.csv",
+                mime="text/csv"
+            )
+
+        except Exception as e:
+            st.error(f"❌ Error: {e}")
+    else:
+        st.info("Please upload two or more CSV files.")
+
+    # ***********************  Uploader Widget for Uploading a CSV File  ***************************
+    # uploaded_file = st.file_uploader("Upload a CSV file")
+    # if uploaded_file is not None:
+    #     dataframe = pd.read_csv(uploaded_file)
+    #     st.write(dataframe)
 
     # *************************************************************************************************************
     # ******************************END OF Function monitoring_trading()******************************************
