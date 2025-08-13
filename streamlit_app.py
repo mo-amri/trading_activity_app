@@ -1,7 +1,6 @@
 ##########################################################################################################
-# Beta v1.09 Enhancements:
-# Added a method to combine multiple CSV files into one. And then download the merging csv file.
-# Comment the  Uploader Widget for Uploading a CSV File
+# Beta v1.10 Enhancements:
+# Removed the "Generate a trading activity table" Button
 ##########################################################################################################
 import streamlit as st
 import pandas as pd
@@ -104,8 +103,6 @@ def monitoring_trading():
             gross_amount = amount_of_shares * gbp_selling
             profit_or_lost_made = gross_amount - (trading_budget + trading_fees)
 
-            # st.info(f"Your satisfaction response '{overall_satisfaction}' has been recorded. Thank you!")
-
             # ___Check up the result & displayed.
             # create a string for currency presentation & rounding to 2 figure.
             spec: str = ',.2f'
@@ -115,10 +112,6 @@ def monitoring_trading():
                 st.success(f"Profit Made:  £{profit_or_lost_made: {spec}}")
             else:
                 st.warning(f"Made a loss:  £ {profit_or_lost_made: {spec}}")
-
-            # ___ Display the Amount of Shares & Gross Amount
-            # st.write(f"Amount of Shares: {round(amount_of_shares, 2)}")
-            # st.write(f"Gross Amount: £{round(gross_amount, 2)}")
 
     # *************************** Display the Data as a Text Format. ***************************************************
     if st.button("Display Trading Activity Data"):
@@ -194,51 +187,6 @@ def monitoring_trading():
             st.success(f"Profit Made:  £{profit_or_lost_made:{spec}}")
         else:
             st.warning(f"Made a loss:  £ {profit_or_lost_made:{spec}}")
-
-    # ***********************  Display The Data as a CSV Table. ************************************
-    if st.button("Generate a Trading Activity Table "):
-        # ___ Process the form data & Calculate the trading profit / loss
-        # ___ Convert purchase price from GBX to GBP.
-        gbp_purchase = buy_price_per_share / 100
-        # ___ Convert selling price from GBX to GBP.
-        gbp_selling = sell_price_per_share / 100
-
-        amount_of_shares = trading_budget / gbp_purchase
-        gross_amount = amount_of_shares * gbp_selling
-        profit_or_lost_made = gross_amount - (trading_budget + trading_fees)
-
-        # ___Create a dictionary of the data to be displayed as a table
-        # create a string for currency presentation & rounding to 2 figure.
-        spec: str = ',.2f'
-        # Create a string for rounding currency variable to 2 figure.
-        round_2_figure: str = '.2f'
-        data = {
-            'Stock Symbol': [stock_symbol],
-            'Closing Deal Satisfaction': [overall_satisfaction],
-            'Trading Strategies': [trading_strategies],
-            'Trading Date': [trading_date.strftime('%d-%m-%Y')],
-            'Trading Budget': [f'£{trading_budget:{spec}}'],
-            'Profit Made': [f'£{profit_or_lost_made: {spec}}'],
-            'Buy Price per Share': [f'{buy_price_per_share: {round_2_figure}} GBX'],
-            'Buy Date/Time': [buy_date_time],
-            'Sell Price per Share': [f'{sell_price_per_share: {round_2_figure}} GBX'],
-            'Sell Date/Time': [sell_date_time],
-            'ISIN': [isin],
-            'Company Website': [company_website],
-            'Sector': [sector],
-            'Industry': [industry],
-            'Quantity of Shares': [f'{amount_of_shares: {round_2_figure}}'],
-            'Gross Amount': [f'£{gross_amount:{spec}}'],
-            'Trading Fees': [f'£{trading_fees:{spec}}']
-        }
-
-        df = pd.DataFrame(data)
-
-        # Set the "Stock Symbol" column as the index
-        df.set_index('Stock Symbol', inplace=True)
-
-        # Display the table
-        st.table(df)
 
     # *************************** Download the data as a CSV File. ********************************************
     # Generate a download button
@@ -324,16 +272,9 @@ def monitoring_trading():
     else:
         st.info("Please upload two or more CSV files.")
 
-    # ***********************  Uploader Widget for Uploading a CSV File  ***************************
-    # uploaded_file = st.file_uploader("Upload a CSV file")
-    # if uploaded_file is not None:
-    #     dataframe = pd.read_csv(uploaded_file)
-    #     st.write(dataframe)
-
     # *************************************************************************************************************
     # ******************************END OF Function monitoring_trading()******************************************
     # *************************************************************************************************************
-
 
 # ******* Convert GBX to GBP. *********************************
 def calculate_gbx_to_gbp(gbx_amount):
@@ -364,7 +305,6 @@ def converter_gbx_to_gbp():
 
 # ******* Convert GBP to GBX. **************************************
 
-
 def calculate_gbp_to_gbx(gbp_amount):
     gbx_amount = gbp_amount * 100
     return gbx_amount
@@ -394,9 +334,9 @@ def converter_gbp_to_gbx():
 
 # ******* Main Entry App Function. ************************************
 
-
 if __name__ == "__main__":
     monitoring_trading()
     converter_gbx_to_gbp()
     converter_gbp_to_gbx()
-    
+
+
