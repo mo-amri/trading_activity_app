@@ -74,7 +74,7 @@ def monitoring_trading():
             buy_price_per_share = st.number_input("Buy Share Price GBX", min_value=0.0)
         with col2:
             # ------------------------"Enter The Time at Which The purchase Price Occurred"
-            buy_date_time = st.text_input("Buy date/Time")
+            buy_date_time = st.text_input("Buy Date/Time")
         col1, col2 = st.columns(2)
         with col1:
             sell_price_per_share = st.number_input('Sell Share Price GBX', min_value=0.0)
