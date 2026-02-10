@@ -1,6 +1,7 @@
 ##########################################################################################################
 # Beta v1.11 Enhancements:
-# URL: https://github.com/mo-amri/trading_activity_app/edit/main/streamlit_app.py
+# URL GitHub: https://github.com/mo-amri/trading_activity_app/edit/main/streamlit_app.py
+# URL Streamlit Cloud: https://amri-trading-activity.streamlit.app
 # the app is back up in the Streamlit cloud
 ##########################################################################################################
 import streamlit as st
