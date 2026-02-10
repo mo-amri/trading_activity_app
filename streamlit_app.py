@@ -1,7 +1,5 @@
 ##########################################################################################################
-# Beta v1.10 Enhancements:
-# Removed the "Generate a trading activity table" Button
-# Try to wake up the app 
+# Beta v1.11 Enhancements:
 ##########################################################################################################
 import streamlit as st
 import pandas as pd
